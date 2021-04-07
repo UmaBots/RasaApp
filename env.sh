@@ -1,0 +1,10 @@
+echo RASA_X_VERSION=0.38.1 > .env
+echo RASA_VERSION=2.4.3 >> .env
+echo RASA_X_DEMO_VERSION=0.38.0 >> .env
+echo RASA_TOKEN=`openssl rand -base64 16` >> .env
+echo RASA_X_TOKEN=`openssl rand -base64 16` >> .env
+echo PASSWORD_SALT=`openssl rand -base64 16` >> .env
+echo JWT_SECRET=`openssl rand -base64 16` >> .env
+echo RABBITMQ_PASSWORD=`openssl rand -base64 16` >> .env
+echo DB_PASSWORD=`openssl rand -base64 16` >> .env
+echo REDIS_PASSWORD=`openssl rand -base64 16` >> .env

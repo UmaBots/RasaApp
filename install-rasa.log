@@ -1,0 +1,698 @@
+Script started on 2021-04-06 22:35:16-03:00 [TERM="xterm-256color" TTY="/dev/pts/2" COLUMNS="183" LINES="45"]
+]0;paulista@paulista-DC3D-U: ~/UmaBots/RasaApp[01;32mpaulista@paulista-DC3D-U[00m:[01;34m~/UmaBots/RasaApp[00m$ ls[K[K[K]0;paulista@paulista-DC3D-U: ~/UmaBots/RasaApp[01;32mpaulista@paulista-DC3D-U[00m:[01;34m~/UmaBots/RasaApp[00m$ [K]0;paulista@paulista-DC3D-U: ~/UmaBots/RasaApp[01;32mpaulista@paulista-DC3D-U[00m:[01;34m~/UmaBots/RasaApp[00m$ ls
+env.sh  install-rasa.log
+]0;paulista@paulista-DC3D-U: ~/UmaBots/RasaApp[01;32mpaulista@paulista-DC3D-U[00m:[01;34m~/UmaBots/RasaApp[00m$ sh env.sh 
+]0;paulista@paulista-DC3D-U: ~/UmaBots/RasaApp[01;32mpaulista@paulista-DC3D-U[00m:[01;34m~/UmaBots/RasaApp[00m$ ls -a
+[0m[01;34m.[0m  [01;34m..[0m  [01;34m.config[0m  .env  env.sh  [01;34m.git[0m  install-rasa.log
+]0;paulista@paulista-DC3D-U: ~/UmaBots/RasaApp[01;32mpaulista@paulista-DC3D-U[00m:[01;34m~/UmaBots/RasaApp[00m$ ls .config/
+]0;paulista@paulista-DC3D-U: ~/UmaBots/RasaApp[01;32mpaulista@paulista-DC3D-U[00m:[01;34m~/UmaBots/RasaApp[00m$ ls
+env.sh  install-rasa.log
+]0;paulista@paulista-DC3D-U: ~/UmaBots/RasaApp[01;32mpaulista@paulista-DC3D-U[00m:[01;34m~/UmaBots/RasaApp[00m$ python3 --version && docker -v && docker-compose -v
+Python 3.8.6
+Docker version 20.10.2, build 2291f61
+docker-compose version 1.27.4, build 40524192
+]0;paulista@paulista-DC3D-U: ~/UmaBots/RasaApp[01;32mpaulista@paulista-DC3D-U[00m:[01;34m~/UmaBots/RasaApp[00m$ wget -qO docker-compose.yml https://storage.googleapis.com/rasa-x-releases/0.38.1/docker-compose.ce.yml
+]0;paulista@paulista-DC3D-U: ~/UmaBots/RasaApp[01;32mpaulista@paulista-DC3D-U[00m:[01;34m~/UmaBots/RasaApp[00m$ wget -qO rasa_x_commands.py https://storage.googleapis.com/rasa-x-releases/0.38.1/rasa_x_commands.py
+]0;paulista@paulista-DC3D-U: ~/UmaBots/RasaApp[01;32mpaulista@paulista-DC3D-U[00m:[01;34m~/UmaBots/RasaApp[00m$ wget -qO docker-compose.yml https://storage.googleapis.com/rasa-x-releases/0.38.1/docker-compose.ce.yml
+]0;paulista@paulista-DC3D-U: ~/UmaBots/RasaApp[01;32mpaulista@paulista-DC3D-U[00m:[01;34m~/UmaBots/RasaApp[00m$ c[Kecho 'rasa:
+>    url: ${RASA_X_HOST}/api' > e[Kcren[Kte[K[Kdentials.yml
+]0;paulista@paulista-DC3D-U: ~/UmaBots/RasaApp[01;32mpaulista@paulista-DC3D-U[00m:[01;34m~/UmaBots/RasaApp[00m$ echo 'models:
+>    url: ${RASA_MODEL_SERVER}
+>    token: ${RASA_X_TOKEN}
+>    wait_time_between_pulls: ${RASA_MODEL_PULL_INTERVAL}
+> tracker_store:
+>    type: sql
+>    dialect: "postgresql"
+>    url: ${DB_HOST}
+>    port: ${DB_PORT}
+>    username: ${DB_USER}
+>    password: ${DB_PASSWORD}
+>    db: ${DB_DATABASE}
+>    login_db: ${DB_LOGIN_DB}
+> lock_store:
+>    type: "redis"
+>    url: ${REDIS_HOST}
+>    port: ${REDIS_PORT}
+>    password: ${REDIS_PASSWORD}
+>    db: ${REDIS_DB}
+> cache:
+>    type: "redis"
+>    url: ${REDIS_HOST}
+>    port: ${REDIS_PORT}
+>    password: ${REDIS_PASSWORD}
+>    db: ${REDIS_CACHE_DB}
+> event_broker:
+>    type: "pika"
+>    url: ${RABBITMQ_HOST}
+>    username: ${RABBITMQ_USERNAME}
+>    password: ${RABBITMQ_PASSWORD}
+>    queues:
+>    - ${RABBITMQ_QUEUE}
+> action_endpoint:
+>    url: ${RASA_USER_APP}/webhook
+>    token: ""' > endpoints.yml
+]0;paulista@paulista-DC3D-U: ~/UmaBots/RasaApp[01;32mpaulista@paulista-DC3D-U[00m:[01;34m~/UmaBots/RasaApp[00m$ echo 'rasa:
+>    production:
+>       url: http://rasa-production:5005
+>       token: ${RASA_TOKEN}
+>    worker:
+>       url: http://rasa-worker:5005
+>       token: ${RASA_TOKEN}' > envinronments.yml[1Pronments.yml
+]0;paulista@paulista-DC3D-U: ~/UmaBots/RasaApp[01;32mpaulista@paulista-DC3D-U[00m:[01;34m~/UmaBots/RasaApp[00m$ mkdir auth
+]0;paulista@paulista-DC3D-U: ~/UmaBots/RasaApp[01;32mpaulista@paulista-DC3D-U[00m:[01;34m~/UmaBots/RasaApp[00m$ mkdir certs
+]0;paulista@paulista-DC3D-U: ~/UmaBots/RasaApp[01;32mpaulista@paulista-DC3D-U[00m:[01;34m~/UmaBots/RasaApp[00m$ mkdir credentials
+]0;paulista@paulista-DC3D-U: ~/UmaBots/RasaApp[01;32mpaulista@paulista-DC3D-U[00m:[01;34m~/UmaBots/RasaApp[00m$ mkdir models
+]0;paulista@paulista-DC3D-U: ~/UmaBots/RasaApp[01;32mpaulista@paulista-DC3D-U[00m:[01;34m~/UmaBots/RasaApp[00m$ mkdir logs
+]0;paulista@paulista-DC3D-U: ~/UmaBots/RasaApp[01;32mpaulista@paulista-DC3D-U[00m:[01;34m~/UmaBots/RasaApp[00m$ mkdir terms
+]0;paulista@paulista-DC3D-U: ~/UmaBots/RasaApp[01;32mpaulista@paulista-DC3D-U[00m:[01;34m~/UmaBots/RasaApp[00m$ mkdir db
+]0;paulista@paulista-DC3D-U: ~/UmaBots/RasaApp[01;32mpaulista@paulista-DC3D-U[00m:[01;34m~/UmaBots/RasaApp[00m$ touch /etc/rasa/terms/agree.txt
+touch: não foi possível tocar '/etc/rasa/terms/agree.txt': Arquivo ou diretório inexistente
+]0;paulista@paulista-DC3D-U: ~/UmaBots/RasaApp[01;32mpaulista@paulista-DC3D-U[00m:[01;34m~/UmaBots/RasaApp[00m$ touch terms/agree.txt
+]0;paulista@paulista-DC3D-U: ~/UmaBots/RasaApp[01;32mpaulista@paulista-DC3D-U[00m:[01;34m~/UmaBots/RasaApp[00m$ sudo chgrp -R root * && sudo chmod -R 770 *
+]0;paulista@paulista-DC3D-U: ~/UmaBots/RasaApp[01;32mpaulista@paulista-DC3D-U[00m:[01;34m~/UmaBots/RasaApp[00m$ sudo chown -R 1001 db && sudo chmod -R 750 db
+]0;paulista@paulista-DC3D-U: ~/UmaBots/RasaApp[01;32mpaulista@paulista-DC3D-U[00m:[01;34m~/UmaBots/RasaApp[00m$ docker [Koc[K[K-compose up
+Creating network "rasaapp_default" with the default driver
+Creating rasaapp_redis_1 ... 
+Creating rasaapp_duckling_1 ... 
+Creating rasaapp_rabbit_1   ... 
+Creating rasaapp_db_1       ... 
+[3A[2KCreating rasaapp_duckling_1 ... [32mdone[0m[3B[1A[2KCreating rasaapp_db_1       ... [32mdone[0m[1BCreating rasaapp_rasa-x_1   ... 
+Creating rasaapp_db-migration_1 ... 
+[4A[2KCreating rasaapp_rabbit_1       ... [32mdone[0m[4B[6A[2KCreating rasaapp_redis_1        ... [32mdone[0m[6B[1A[2KCreating rasaapp_db-migration_1 ... [32mdone[0m[1B[2A[2KCreating rasaapp_rasa-x_1       ... [32mdone[0m[2BCreating rasaapp_rasa-worker_1  ... 
+Creating rasaapp_rasa-production_1 ... 
+[1A[2KCreating rasaapp_rasa-production_1 ... [32mdone[0m[1BCreating rasaapp_app_1             ... 
+[3A[2KCreating rasaapp_rasa-worker_1     ... [32mdone[0m[3B[1A[2KCreating rasaapp_app_1             ... [32mdone[0m[1BCreating rasaapp_nginx_1           ... 
+[1A[2KCreating rasaapp_nginx_1           ... [32mdone[0m[1BAttaching to rasaapp_duckling_1, rasaapp_db_1, rasaapp_rabbit_1, rasaapp_redis_1, rasaapp_db-migration_1, rasaapp_rasa-x_1, rasaapp_rasa-production_1, rasaapp_rasa-worker_1, rasaapp_app_1, rasaapp_nginx_1
+[33mdb-migration_1     |[0m 2021-04-07 01:45:02.235690: W tensorflow/stream_executor/platform/default/dso_loader.cc:59] Could not load dynamic library 'libcudart.so.10.1'; dlerror: libcudart.so.10.1: cannot open shared object file: No such file or directory
+[33mdb-migration_1     |[0m 2021-04-07 01:45:02.235718: I tensorflow/stream_executor/cuda/cudart_stub.cc:29] Ignore above cudart dlerror if you do not have a GPU set up on your machine.
+[32mdb_1               |[0m [38;5;6mpostgresql [38;5;5m01:45:00.22 [0m
+[32mdb_1               |[0m [38;5;6mpostgresql [38;5;5m01:45:00.22 [0m[1mWelcome to the Bitnami postgresql container[0m
+[32mdb_1               |[0m [38;5;6mpostgresql [38;5;5m01:45:00.22 [0mSubscribe to project updates by watching [1mhttps://github.com/bitnami/bitnami-docker-postgresql[0m
+[32mdb_1               |[0m [38;5;6mpostgresql [38;5;5m01:45:00.22 [0mSubmit issues and feature requests at [1mhttps://github.com/bitnami/bitnami-docker-postgresql/issues[0m
+[32mdb_1               |[0m [38;5;6mpostgresql [38;5;5m01:45:00.23 [0m
+[32mdb_1               |[0m [38;5;6mpostgresql [38;5;5m01:45:00.25 [0m[38;5;2mINFO [0m ==> ** Starting PostgreSQL setup **
+[32mdb_1               |[0m [38;5;6mpostgresql [38;5;5m01:45:00.27 [0m[38;5;2mINFO [0m ==> Validating settings in POSTGRESQL_* env vars..
+[32mdb_1               |[0m [38;5;6mpostgresql [38;5;5m01:45:00.28 [0m[38;5;2mINFO [0m ==> Loading custom pre-init scripts...
+[32mdb_1               |[0m [38;5;6mpostgresql [38;5;5m01:45:00.28 [0m[38;5;2mINFO [0m ==> Initializing PostgreSQL database...
+[32mdb_1               |[0m [38;5;6mpostgresql [38;5;5m01:45:00.32 [0m[38;5;2mINFO [0m ==> pg_hba.conf file not detected. Generating it...
+[32mdb_1               |[0m [38;5;6mpostgresql [38;5;5m01:45:00.33 [0m[38;5;2mINFO [0m ==> Generating local authentication configuration
+[32mdb_1               |[0m [38;5;6mpostgresql [38;5;5m01:45:02.35 [0m[38;5;2mINFO [0m ==> Starting PostgreSQL in background...
+[32mdb_1               |[0m [38;5;6mpostgresql [38;5;5m01:45:02.85 [0m[38;5;2mINFO [0m ==> Creating user admin
+[32mdb_1               |[0m [38;5;6mpostgresql [38;5;5m01:45:02.87 [0m[38;5;2mINFO [0m ==> Granting access to "admin" to the database "rasa"
+[32mdb_1               |[0m [38;5;6mpostgresql [38;5;5m01:45:02.92 [0m[38;5;2mINFO [0m ==> Configuring replication parameters
+[32mdb_1               |[0m [38;5;6mpostgresql [38;5;5m01:45:02.98 [0m[38;5;2mINFO [0m ==> Configuring fsync
+[32mdb_1               |[0m [38;5;6mpostgresql [38;5;5m01:45:03.03 [0m[38;5;2mINFO [0m ==> Loading custom scripts...
+[32mdb_1               |[0m [38;5;6mpostgresql [38;5;5m01:45:03.04 [0m[38;5;2mINFO [0m ==> Enabling remote connections
+[32mdb_1               |[0m waiting for server to shut down....[38;5;6mpostgresql [38;5;5m01:45:03.07 [0m[38;5;2mINFO [0m ==> Stopping PostgreSQL...
+[32mdb_1               |[0m  done
+[32mdb_1               |[0m server stopped
+[32mdb_1               |[0m [38;5;6mpostgresql [38;5;5m01:45:03.19 [0m[38;5;2mINFO [0m ==> ** PostgreSQL setup finished! **
+[32mdb_1               |[0m 
+[32mdb_1               |[0m [38;5;6mpostgresql [38;5;5m01:45:03.22 [0m[38;5;2mINFO [0m ==> ** Starting PostgreSQL **
+[32mdb_1               |[0m 2021-04-07 01:45:03.254 GMT [1] LOG:  pgaudit extension initialized
+[32mdb_1               |[0m 2021-04-07 01:45:03.255 GMT [1] LOG:  listening on IPv4 address "0.0.0.0", port 5432
+[32mdb_1               |[0m 2021-04-07 01:45:03.255 GMT [1] LOG:  listening on IPv6 address "::", port 5432
+[32mdb_1               |[0m 2021-04-07 01:45:03.258 GMT [1] LOG:  listening on Unix socket "/tmp/.s.PGSQL.5432"
+[32mdb_1               |[0m 2021-04-07 01:45:03.270 GMT [129] LOG:  database system was shut down at 2021-04-07 01:45:03 GMT
+[32mdb_1               |[0m 2021-04-07 01:45:03.274 GMT [1] LOG:  database system is ready to accept connections
+[35mduckling_1         |[0m no port specified, defaulting to port 8000
+[35mduckling_1         |[0m Listening on http://0.0.0.0:8000
+[36;1mrabbit_1           |[0m [38;5;6mrabbitmq [38;5;5m01:45:00.34 [0m
+[34mnginx_1            |[0m [38;5;6mnginx [38;5;5m01:45:03.59 [0m
+[36;1mrabbit_1           |[0m [38;5;6mrabbitmq [38;5;5m01:45:00.35 [0m[1mWelcome to the Bitnami rabbitmq container[0m
+[36;1mrabbit_1           |[0m [38;5;6mrabbitmq [38;5;5m01:45:00.35 [0mSubscribe to project updates by watching [1mhttps://github.com/bitnami/bitnami-docker-rabbitmq[0m
+[36;1mrabbit_1           |[0m [38;5;6mrabbitmq [38;5;5m01:45:00.35 [0mSubmit issues and feature requests at [1mhttps://github.com/bitnami/bitnami-docker-rabbitmq/issues[0m
+[36;1mrabbit_1           |[0m [38;5;6mrabbitmq [38;5;5m01:45:00.35 [0m
+[34mnginx_1            |[0m [38;5;6mnginx [38;5;5m01:45:03.60 [0m[1mWelcome to the Bitnami nginx container[0m
+[36;1mrabbit_1           |[0m [38;5;6mrabbitmq [38;5;5m01:45:00.37 [0m[38;5;2mINFO [0m ==> ** Starting RabbitMQ setup **
+[36;1mrabbit_1           |[0m [38;5;6mrabbitmq [38;5;5m01:45:00.39 [0m[38;5;2mINFO [0m ==> Validating settings in RABBITMQ_* env vars..
+[36;1mrabbit_1           |[0m [38;5;6mrabbitmq [38;5;5m01:45:00.41 [0m[38;5;2mINFO [0m ==> Initializing RabbitMQ...
+[36;1mrabbit_1           |[0m [38;5;6mrabbitmq [38;5;5m01:45:00.42 [0m[38;5;2mINFO [0m ==> Generating random cookie
+[36;1mrabbit_1           |[0m [38;5;6mrabbitmq [38;5;5m01:45:00.44 [0m[38;5;2mINFO [0m ==> Starting RabbitMQ in background...
+[33;1mrasa-production_1  |[0m 2021-04-07 01:45:03.429620: W tensorflow/stream_executor/platform/default/dso_loader.cc:59] Could not load dynamic library 'libcudart.so.10.1'; dlerror: libcudart.so.10.1: cannot open shared object file: No such file or directory
+[33;1mrasa-production_1  |[0m 2021-04-07 01:45:03.429780: I tensorflow/stream_executor/cuda/cudart_stub.cc:29] Ignore above cudart dlerror if you do not have a GPU set up on your machine.
+[34mnginx_1            |[0m [38;5;6mnginx [38;5;5m01:45:03.60 [0mSubscribe to project updates by watching [1mhttps://github.com/bitnami/bitnami-docker-nginx[0m
+[34mnginx_1            |[0m [38;5;6mnginx [38;5;5m01:45:03.60 [0mSubmit issues and feature requests at [1mhttps://github.com/bitnami/bitnami-docker-nginx/issues[0m
+[34;1mredis_1            |[0m [38;5;6mredis [38;5;5m01:45:00.40 [0m
+[34;1mredis_1            |[0m [38;5;6mredis [38;5;5m01:45:00.40 [0m[1mWelcome to the Bitnami redis container[0m
+[34;1mredis_1            |[0m [38;5;6mredis [38;5;5m01:45:00.40 [0mSubscribe to project updates by watching [1mhttps://github.com/bitnami/bitnami-docker-redis[0m
+[34;1mredis_1            |[0m [38;5;6mredis [38;5;5m01:45:00.40 [0mSubmit issues and feature requests at [1mhttps://github.com/bitnami/bitnami-docker-redis/issues[0m
+[34;1mredis_1            |[0m [38;5;6mredis [38;5;5m01:45:00.40 [0m
+[34;1mredis_1            |[0m [38;5;6mredis [38;5;5m01:45:00.40 [0m[38;5;2mINFO [0m ==> ** Starting Redis setup **
+[34;1mredis_1            |[0m [38;5;6mredis [38;5;5m01:45:00.42 [0m[38;5;2mINFO [0m ==> Initializing Redis
+[34;1mredis_1            |[0m [38;5;6mredis [38;5;5m01:45:00.43 [0m[38;5;2mINFO [0m ==> Setting Redis config file
+[34;1mredis_1            |[0m [38;5;6mredis [38;5;5m01:45:00.46 [0m[38;5;2mINFO [0m ==> ** Redis setup finished! **
+[34;1mredis_1            |[0m 
+[34;1mredis_1            |[0m [38;5;6mredis [38;5;5m01:45:00.47 [0m[38;5;2mINFO [0m ==> ** Starting Redis **
+[34;1mredis_1            |[0m 1:C 07 Apr 2021 01:45:00.479 # oO0OoO0OoO0Oo Redis is starting oO0OoO0OoO0Oo
+[34;1mredis_1            |[0m 1:C 07 Apr 2021 01:45:00.479 # Redis version=6.0.8, bits=64, commit=00000000, modified=0, pid=1, just started
+[34;1mredis_1            |[0m 1:C 07 Apr 2021 01:45:00.479 # Configuration loaded
+[34;1mredis_1            |[0m                 _._                                                  
+[34;1mredis_1            |[0m            _.-``__ ''-._                                             
+[34;1mredis_1            |[0m       _.-``    `.  `_.  ''-._           Redis 6.0.8 (00000000/0) 64 bit
+[34;1mredis_1            |[0m   .-`` .-```.  ```\/    _.,_ ''-._                                   
+[34;1mredis_1            |[0m  (    '      ,       .-`  | `,    )     Running in standalone mode
+[34;1mredis_1            |[0m  |`-._`-...-` __...-.``-._|'` _.-'|     Port: 6379
+[34;1mredis_1            |[0m  |    `-._   `._    /     _.-'    |     PID: 1
+[34;1mredis_1            |[0m   `-._    `-._  `-./  _.-'    _.-'                                   
+[34;1mredis_1            |[0m  |`-._`-._    `-.__.-'    _.-'_.-'|                                  
+[34;1mredis_1            |[0m  |    `-._`-._        _.-'_.-'    |           http://redis.io        
+[34;1mredis_1            |[0m   `-._    `-._`-.__.-'_.-'    _.-'                                   
+[34;1mredis_1            |[0m  |`-._`-._    `-.__.-'    _.-'_.-'|                                  
+[34;1mredis_1            |[0m  |    `-._`-._        _.-'_.-'    |                                  
+[34;1mredis_1            |[0m   `-._    `-._`-.__.-'_.-'    _.-'                                   
+[34;1mredis_1            |[0m       `-._    `-.__.-'    _.-'                                       
+[34;1mredis_1            |[0m           `-._        _.-'                                           
+[34;1mredis_1            |[0m               `-.__.-'                                               
+[34;1mredis_1            |[0m 
+[34;1mredis_1            |[0m 1:M 07 Apr 2021 01:45:00.481 # Server initialized
+[34;1mredis_1            |[0m 1:M 07 Apr 2021 01:45:00.481 # WARNING overcommit_memory is set to 0! Background save may fail under low memory condition. To fix this issue add 'vm.overcommit_memory = 1' to /etc/sysctl.conf and then reboot or run the command 'sysctl vm.overcommit_memory=1' for this to take effect.
+[34;1mredis_1            |[0m 1:M 07 Apr 2021 01:45:00.481 * Ready to accept connections
+[34mnginx_1            |[0m [38;5;6mnginx [38;5;5m01:45:03.60 [0m
+[34mnginx_1            |[0m 
+[34mnginx_1            |[0m SSL encryption is not used since no certificates were provided.
+[35;1mrasa-x_1           |[0m 2021-04-07 01:45:02.411108: W tensorflow/stream_executor/platform/default/dso_loader.cc:59] Could not load dynamic library 'libcudart.so.10.1'; dlerror: libcudart.so.10.1: cannot open shared object file: No such file or directory
+[35;1mrasa-x_1           |[0m 2021-04-07 01:45:02.417364: I tensorflow/stream_executor/cuda/cudart_stub.cc:29] Ignore above cudart dlerror if you do not have a GPU set up on your machine.
+[34mnginx_1            |[0m >> exec docker CMD
+[34mnginx_1            |[0m /opt/bitnami/scripts/nginx/run.sh
+[34mnginx_1            |[0m [38;5;6mnginx [38;5;5m01:45:03.63 [0m[38;5;2mINFO [0m ==> ** Starting NGINX **
+[34mnginx_1            |[0m 2021/04/07 01:45:03 [notice] 1#1: using the "epoll" event method
+[34mnginx_1            |[0m 2021/04/07 01:45:03 [notice] 1#1: nginx/1.19.8
+[34mnginx_1            |[0m 2021/04/07 01:45:03 [notice] 1#1: built by gcc 8.3.0 (Debian 8.3.0-6) 
+[34mnginx_1            |[0m 2021/04/07 01:45:03 [notice] 1#1: OS: Linux 5.8.0-48-generic
+[34mnginx_1            |[0m 2021/04/07 01:45:03 [notice] 1#1: getrlimit(RLIMIT_NOFILE): 1048576:1048576
+[34mnginx_1            |[0m 2021/04/07 01:45:03 [notice] 1#1: start worker processes
+[34mnginx_1            |[0m 2021/04/07 01:45:03 [notice] 1#1: start worker process 17
+[34mnginx_1            |[0m 2021/04/07 01:45:03 [notice] 1#1: start worker process 18
+[34mnginx_1            |[0m 2021/04/07 01:45:03 [notice] 1#1: start worker process 19
+[34mnginx_1            |[0m 2021/04/07 01:45:03 [notice] 1#1: start worker process 20
+[32;1mrasa-worker_1      |[0m 2021-04-07 01:45:03.781695: W tensorflow/stream_executor/platform/default/dso_loader.cc:59] Could not load dynamic library 'libcudart.so.10.1'; dlerror: libcudart.so.10.1: cannot open shared object file: No such file or directory
+[32;1mrasa-worker_1      |[0m 2021-04-07 01:45:03.781722: I tensorflow/stream_executor/cuda/cudart_stub.cc:29] Ignore above cudart dlerror if you do not have a GPU set up on your machine.
+[36mapp_1              |[0m INFO:rasa_sdk.endpoint:Starting action endpoint server...
+[36mapp_1              |[0m DEBUG:sanic.root:CORS: Configuring CORS with resources: {'/*': {'origins': ['.*'], 'methods': 'DELETE, GET, HEAD, OPTIONS, PATCH, POST, PUT', 'allow_headers': ['.*'], 'expose_headers': None, 'supports_credentials': False, 'max_age': None, 'send_wildcard': False, 'automatic_options': True, 'vary_header': True, 'resources': {'/*': {'origins': '*'}}, 'intercept_exceptions': True, 'always_send': True}}
+[36mapp_1              |[0m INFO:rasa_sdk.endpoint:Action endpoint is up and running on http://localhost:5055
+[36mapp_1              |[0m DEBUG:rasa_sdk.utils:Using the default number of Sanic workers (1).
+[36mapp_1              |[0m DEBUG:sanic.root:
+[36mapp_1              |[0m 
+[36mapp_1              |[0m                  Sanic
+[36mapp_1              |[0m          Build Fast. Run Fast.
+[36mapp_1              |[0m 
+[36mapp_1              |[0m 
+[36mapp_1              |[0m INFO:sanic.root:Goin' Fast @ http://0.0.0.0:5055
+[36mapp_1              |[0m INFO:sanic.root:Starting worker [1]
+[34mnginx_1            |[0m 2021/04/07 01:45:04 [error] 17#17: *1 connect() failed (111: Connection refused) while connecting to upstream, client: 172.20.0.1, server: , request: "GET /api/conversations/435f3379d8e041c781a2c684481b5466?format=full_conversation&since=1617757740.1070342&environment=production HTTP/1.1", upstream: "http://172.20.0.6:5002/api/conversations/435f3379d8e041c781a2c684481b5466?format=full_conversation&since=1617757740.1070342&environment=production", host: "localhost", referrer: "http://localhost/interactive"
+[34mnginx_1            |[0m 172.20.0.1 - - [07/Apr/2021:01:45:04 +0000] "GET /api/conversations/435f3379d8e041c781a2c684481b5466?format=full_conversation&since=1617757740.1070342&environment=production HTTP/1.1" 502 150 "http://localhost/interactive" "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:87.0) Gecko/20100101 Firefox/87.0"
+[35;1mrasa-x_1           |[0m Matplotlib created a temporary config/cache directory at /tmp/matplotlib-69sdvqw8 because the default path (/.config/matplotlib) is not a writable directory; it is highly recommended to set the MPLCONFIGDIR environment variable to a writable directory, in particular to speed up the import of Matplotlib and to better support multiprocessing.
+[33mdb-migration_1     |[0m INFO:__main__:Starting the database migration service
+[33mdb-migration_1     |[0m [92mStarting the database migration service (http)... 🚀[0m
+[33mdb-migration_1     |[0m [2021-04-07 01:45:05 +0000] [1] [INFO] Goin' Fast @ http://0.0.0.0:8000
+[33mdb-migration_1     |[0m [2021-04-07 01:45:05 +0000] [1] [INFO] Starting worker [1]
+[33mdb-migration_1     |[0m INFO:alembic.runtime.migration:Context impl PostgresqlImpl.
+[33mdb-migration_1     |[0m INFO:alembic.runtime.migration:Will assume transactional DDL.
+[33mdb-migration_1     |[0m INFO:alembic.runtime.migration:Running upgrade  -> 2a216ed121dd, Initial migration
+[33;1mrasa-production_1  |[0m 2021-04-07 01:45:06 WARNING  rasa.utils.common  - Failed to write global config. Error: [Errno 13] Permission denied: '/.config/rasa'. Skipping.
+[33mdb-migration_1     |[0m [2021-04-07 01:45:06 +0000] - (sanic.access)[INFO][127.0.0.1:42542]: GET http://localhost:8000/health  200 56
+[33mdb-migration_1     |[0m INFO:alembic.runtime.migration:Running upgrade 2a216ed121dd -> 9d4a16758d6e, Addition of `is_default` and `description` columns to `user_role` table.
+[33mdb-migration_1     |[0m INFO:alembic.runtime.migration:Running upgrade 9d4a16758d6e -> e3a3a2789e20, Add index to `conversation_id` column of table `conversation_event`.
+[33mdb-migration_1     |[0m INFO:alembic.runtime.migration:Running upgrade e3a3a2789e20 -> 59b7be3ad5fc, Add `extractor` column to table `nlu_training_data_entity`.
+[33mdb-migration_1     |[0m INFO:alembic.runtime.migration:Running upgrade 59b7be3ad5fc -> 1dfbf67d6ae2, Support for individually unfeaturized entities in domain.
+[35;1mrasa-x_1           |[0m [92mStarting Rasa X server... 🚀[0m
+[35;1mrasa-x_1           |[0m [2021-04-07 01:45:06 +0000] [9] [INFO] Goin' Fast @ http://0.0.0.0:5002
+[35;1mrasa-x_1           |[0m [2021-04-07 01:45:06 +0000] [27] [INFO] Starting worker [27]
+[32;1mrasa-worker_1      |[0m 2021-04-07 01:45:06 WARNING  rasa.utils.common  - Failed to write global config. Error: [Errno 13] Permission denied: '/.config/rasa'. Skipping.
+[35;1mrasa-x_1           |[0m [2021-04-07 01:45:06 +0000] - (sanic.access)[INFO][172.20.0.9:56460]: GET http://rasa-x:5002/api/config?token=ei5bqYBnmdi+MIZ2xv2eAg==  503 40
+[35;1mrasa-x_1           |[0m [2021-04-07 01:45:06 +0000] [30] [INFO] Starting worker [30]
+[35;1mrasa-x_1           |[0m [2021-04-07 01:45:06 +0000] [33] [INFO] Starting worker [33]
+[35;1mrasa-x_1           |[0m [2021-04-07 01:45:06 +0000] [28] [INFO] Starting worker [28]
+[33mdb-migration_1     |[0m INFO:alembic.runtime.migration:Running upgrade 1dfbf67d6ae2 -> b4a9bd47b6e0, Indexes for faster NLU logs and training data queries.
+[33mdb-migration_1     |[0m INFO:alembic.runtime.migration:Running upgrade b4a9bd47b6e0 -> 8b528d137850, Add single column id for domain objects such as actions, slots, etc.
+[33mdb-migration_1     |[0m INFO:alembic.runtime.migration:Running upgrade 8b528d137850 -> 45546b047abe, Add index to `timestamp` column in `conversation_event` table.
+[33mdb-migration_1     |[0m INFO:alembic.runtime.migration:Running upgrade 45546b047abe -> 213f246e1490, Remove duplicated log entries keeping only most recent unique user messages.
+[35;1mrasa-x_1           |[0m [2021-04-07 01:45:07 +0000] - (sanic.access)[INFO][172.20.0.11:55750]: GET http://localhost/api/conversations/435f3379d8e041c781a2c684481b5466?format=full_conversation&since=1617757740.1070342&environment=production  302 0
+[34mnginx_1            |[0m 172.20.0.1 - - [07/Apr/2021:01:45:07 +0000] "GET /api/conversations/435f3379d8e041c781a2c684481b5466?format=full_conversation&since=1617757740.1070342&environment=production HTTP/1.1" 302 0 "http://localhost/interactive" "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:87.0) Gecko/20100101 Firefox/87.0"
+[35;1mrasa-x_1           |[0m WARNING:rasax.community.database.utils:DB revision(s) do not match migration scripts revision(s):
+[35;1mrasa-x_1           |[0m WARNING:rasax.community.database.utils:DB revision: ['45546b047abe']
+[35;1mrasa-x_1           |[0m WARNING:rasax.community.database.utils:Migration scripts revision: ['839cc1322002']
+[35;1mrasa-x_1           |[0m [2021-04-07 01:45:07 +0000] - (sanic.access)[INFO][172.20.0.11:55752]: GET http://localhost/api/health  200 146
+[34mnginx_1            |[0m 172.20.0.1 - - [07/Apr/2021:01:45:07 +0000] "GET /api/health HTTP/1.1" 200 146 "http://localhost/interactive" "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:87.0) Gecko/20100101 Firefox/87.0"
+[33mdb-migration_1     |[0m INFO:alembic.runtime.migration:Running upgrade 213f246e1490 -> ffddc4250349, Add a column for `triggers` to the domain intents.
+[33mdb-migration_1     |[0m INFO:alembic.runtime.migration:Running upgrade ffddc4250349 -> 35a1c7937594, Add `edited_since_last_training` column to `template` table.
+[33mdb-migration_1     |[0m INFO:alembic.runtime.migration:Running upgrade 35a1c7937594 -> 6fce9679db61, Add column to `lookup_table` table which contains the number of elements in a table.
+[33mdb-migration_1     |[0m INFO:alembic.runtime.migration:Running upgrade 6fce9679db61 -> 4daabca814ee, Oracle Migrations.
+[33mdb-migration_1     |[0m INFO:alembic.runtime.migration:Running upgrade 4daabca814ee -> 1d990f240f4d, Change datatype of the `text` column in the table `template` from `String` to `Text`
+[33mdb-migration_1     |[0m INFO:alembic.runtime.migration:Running upgrade 1d990f240f4d -> 36c070bd6363, Rename too-long table name `conversation_message_correction`.
+[33mdb-migration_1     |[0m INFO:alembic.runtime.migration:Running upgrade 36c070bd6363 -> d45a0bf21e89, Add unique ID to EntitySynonyms
+[35;1mrasa-x_1           |[0m [2021-04-07 01:45:10 +0000] - (sanic.access)[INFO][172.20.0.11:55756]: GET http://localhost/api/conversations/435f3379d8e041c781a2c684481b5466?format=full_conversation&since=1617757740.1070342&environment=production  302 0
+[34mnginx_1            |[0m 172.20.0.1 - - [07/Apr/2021:01:45:10 +0000] "GET /api/conversations/435f3379d8e041c781a2c684481b5466?format=full_conversation&since=1617757740.1070342&environment=production HTTP/1.1" 302 0 "http://localhost/interactive" "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:87.0) Gecko/20100101 Firefox/87.0"
+[35;1mrasa-x_1           |[0m WARNING:rasax.community.database.utils:DB revision(s) do not match migration scripts revision(s):
+[35;1mrasa-x_1           |[0m WARNING:rasax.community.database.utils:DB revision: ['36c070bd6363']
+[35;1mrasa-x_1           |[0m WARNING:rasax.community.database.utils:Migration scripts revision: ['839cc1322002']
+[35;1mrasa-x_1           |[0m [2021-04-07 01:45:10 +0000] - (sanic.access)[INFO][172.20.0.11:55758]: GET http://localhost/api/health  200 146
+[34mnginx_1            |[0m 172.20.0.1 - - [07/Apr/2021:01:45:10 +0000] "GET /api/health HTTP/1.1" 200 146 "http://localhost/interactive" "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:87.0) Gecko/20100101 Firefox/87.0"
+[33mdb-migration_1     |[0m INFO:alembic.runtime.migration:Running upgrade d45a0bf21e89 -> 3b15f8e56784, Add `original_value` field to training data entities.
+[35;1mrasa-x_1           |[0m [2021-04-07 01:45:11 +0000] - (sanic.access)[INFO][172.20.0.8:53846]: GET http://rasa-x:5002/api/config?token=ei5bqYBnmdi+MIZ2xv2eAg==  503 40
+[33mdb-migration_1     |[0m [2021-04-07 01:45:11 +0000] - (sanic.access)[INFO][127.0.0.1:42588]: GET http://localhost:8000/health  200 56
+[33mdb-migration_1     |[0m INFO:alembic.runtime.migration:Running upgrade 3b15f8e56784 -> a86c9fac00fa, Add `rasa_environment` column to `conversation_event` table.
+[33mdb-migration_1     |[0m INFO:alembic.runtime.migration:Running upgrade a86c9fac00fa -> a813c6c15a4c, Add a column to store the foreign key of a used synonym.
+[35;1mrasa-x_1           |[0m [2021-04-07 01:45:11 +0000] - (sanic.access)[INFO][172.20.0.9:56488]: GET http://rasa-x:5002/api/config?token=ei5bqYBnmdi+MIZ2xv2eAg==  503 40
+[36;1mrabbit_1           |[0m [38;5;6mrabbitmq [38;5;5m01:45:12.07 [0m[38;5;2mINFO [0m ==> Stopping RabbitMQ...
+[33mdb-migration_1     |[0m INFO:alembic.runtime.migration:Running upgrade a813c6c15a4c -> cffc160af576, Add data column to User
+[33mdb-migration_1     |[0m INFO:alembic.runtime.migration:Running upgrade cffc160af576 -> 945ef2034d57, Add `git_repository` table.
+[33mdb-migration_1     |[0m INFO:alembic.runtime.migration:Running upgrade 945ef2034d57 -> 99e6a52a2eb7, Drop 'attributes' column in 'rasa_x_user' table.
+[33mdb-migration_1     |[0m INFO:alembic.runtime.migration:Running upgrade 99e6a52a2eb7 -> d9d7b3d9cadd, Add `session_expiration_time` and `carry_over_slots_to_new_session` columns to table `domain`.
+[33mdb-migration_1     |[0m INFO:alembic.runtime.migration:Running upgrade d9d7b3d9cadd -> acd80348b093, Add configuration values table.
+[33mdb-migration_1     |[0m INFO:alembic.runtime.migration:Running upgrade acd80348b093 -> 443af39e50e3, This migration is left empty because of issue with 0.25.0 release.
+[33mdb-migration_1     |[0m INFO:alembic.runtime.migration:Running upgrade 443af39e50e3 -> 22e9e6ea593c, This migration is left empty because of issue with 0.25.0 release.
+[33mdb-migration_1     |[0m INFO:alembic.runtime.migration:Running upgrade 22e9e6ea593c -> 8893bba2a522, Rename column `carry_over_slots_to_new_session` and index `nlu_train_data_ent_orig_val_idx`.
+[33mdb-migration_1     |[0m INFO:alembic.runtime.migration:Running upgrade 8893bba2a522 -> d5160f2d00b8, Remove duplicate responses.
+[35;1mrasa-x_1           |[0m [2021-04-07 01:45:13 +0000] - (sanic.access)[INFO][172.20.0.11:55778]: GET http://localhost/api/conversations/435f3379d8e041c781a2c684481b5466?format=full_conversation&since=1617757740.1070342&environment=production  302 0
+[34mnginx_1            |[0m 172.20.0.1 - - [07/Apr/2021:01:45:13 +0000] "GET /api/conversations/435f3379d8e041c781a2c684481b5466?format=full_conversation&since=1617757740.1070342&environment=production HTTP/1.1" 302 0 "http://localhost/interactive" "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:87.0) Gecko/20100101 Firefox/87.0"
+[35;1mrasa-x_1           |[0m WARNING:rasax.community.database.utils:DB revision(s) do not match migration scripts revision(s):
+[35;1mrasa-x_1           |[0m WARNING:rasax.community.database.utils:DB revision: ['8893bba2a522']
+[35;1mrasa-x_1           |[0m WARNING:rasax.community.database.utils:Migration scripts revision: ['839cc1322002']
+[35;1mrasa-x_1           |[0m [2021-04-07 01:45:13 +0000] - (sanic.access)[INFO][172.20.0.11:55780]: GET http://localhost/api/health  200 146
+[34mnginx_1            |[0m 172.20.0.1 - - [07/Apr/2021:01:45:13 +0000] "GET /api/health HTTP/1.1" 200 146 "http://localhost/interactive" "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:87.0) Gecko/20100101 Firefox/87.0"
+[33mdb-migration_1     |[0m INFO:alembic.runtime.migration:Running upgrade d5160f2d00b8 -> 8a260b1a797a, FIXED Remove is_unflagged field from Conversations
+[33mdb-migration_1     |[0m INFO:alembic.runtime.migration:Running upgrade 8a260b1a797a -> 0b35090e53cf, FIXED Add tables to store conversation tags.
+[33mdb-migration_1     |[0m INFO:alembic.runtime.migration:Running upgrade 0b35090e53cf -> 1a712f7b70e9, Delete duplicate events and add unique constraint to `conversation_event` table.
+[36;1mrabbit_1           |[0m [38;5;6mrabbitmq [38;5;5m01:45:15.04 [0m[38;5;2mINFO [0m ==> ** RabbitMQ setup finished! **
+[36;1mrabbit_1           |[0m 
+[36;1mrabbit_1           |[0m [38;5;6mrabbitmq [38;5;5m01:45:15.06 [0m[38;5;2mINFO [0m ==> ** Starting RabbitMQ **
+[33mdb-migration_1     |[0m INFO:alembic.runtime.migration:Running upgrade 1a712f7b70e9 -> 6738be716c3f, Add slot name and value to ConversationEvent
+[35;1mrasa-x_1           |[0m [2021-04-07 01:45:16 +0000] - (sanic.access)[INFO][172.20.0.8:53872]: GET http://rasa-x:5002/api/config?token=ei5bqYBnmdi+MIZ2xv2eAg==  503 40
+[33mdb-migration_1     |[0m [2021-04-07 01:45:16 +0000] - (sanic.access)[INFO][127.0.0.1:42614]: GET http://localhost:8000/health  200 56
+[33mdb-migration_1     |[0m INFO:alembic.runtime.migration:Running upgrade 6738be716c3f -> 304e0754a200, Add columns for the updated Integrated Version Control features.
+[33mdb-migration_1     |[0m INFO:alembic.runtime.migration:Running upgrade 304e0754a200 -> b49ca6b367e3, Add index for flagged conversation events
+[33mdb-migration_1     |[0m INFO:alembic.runtime.migration:Running upgrade b49ca6b367e3 -> 37b34bf8df43, Add columns and indices for NLU/Core confidences
+[35;1mrasa-x_1           |[0m [2021-04-07 01:45:16 +0000] - (sanic.access)[INFO][172.20.0.11:55802]: GET http://localhost/api/conversations/435f3379d8e041c781a2c684481b5466?format=full_conversation&since=1617757740.1070342&environment=production  302 0
+[34mnginx_1            |[0m 172.20.0.1 - - [07/Apr/2021:01:45:16 +0000] "GET /api/conversations/435f3379d8e041c781a2c684481b5466?format=full_conversation&since=1617757740.1070342&environment=production HTTP/1.1" 302 0 "http://localhost/interactive" "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:87.0) Gecko/20100101 Firefox/87.0"
+[35;1mrasa-x_1           |[0m WARNING:rasax.community.database.utils:DB revision(s) do not match migration scripts revision(s):
+[35;1mrasa-x_1           |[0m WARNING:rasax.community.database.utils:DB revision: ['b49ca6b367e3']
+[35;1mrasa-x_1           |[0m WARNING:rasax.community.database.utils:Migration scripts revision: ['839cc1322002']
+[35;1mrasa-x_1           |[0m [2021-04-07 01:45:16 +0000] - (sanic.access)[INFO][172.20.0.11:55804]: GET http://localhost/api/health  200 146
+[34mnginx_1            |[0m 172.20.0.1 - - [07/Apr/2021:01:45:16 +0000] "GET /api/health HTTP/1.1" 200 146 "http://localhost/interactive" "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:87.0) Gecko/20100101 Firefox/87.0"
+[35;1mrasa-x_1           |[0m [2021-04-07 01:45:16 +0000] - (sanic.access)[INFO][172.20.0.9:56520]: GET http://rasa-x:5002/api/config?token=ei5bqYBnmdi+MIZ2xv2eAg==  503 40
+[36;1mrabbit_1           |[0m Configuring logger redirection
+[33mdb-migration_1     |[0m /usr/local/lib/python3.8/dist-packages/sqlalchemy/dialects/postgresql/base.py:3536: SAWarning: Predicate of partial index conversation_event_flag_index ignored during reflection
+[33mdb-migration_1     |[0m   util.warn(
+[33mdb-migration_1     |[0m INFO:alembic.runtime.migration:Running upgrade 37b34bf8df43 -> 68a8a531a5ee, Add `in_training_data` column to `conversation_session` table.
+[33mdb-migration_1     |[0m INFO:alembic.runtime.migration:Running upgrade 68a8a531a5ee -> 66bada3d94ae, Add new `tests.*` permission for admins
+[36;1mrabbit_1           |[0m 2021-04-07 01:45:19.605 [debug] <0.284.0> Lager installed handler error_logger_lager_h into error_logger
+[36;1mrabbit_1           |[0m 2021-04-07 01:45:19.614 [debug] <0.287.0> Lager installed handler lager_forwarder_backend into error_logger_lager_event
+[36;1mrabbit_1           |[0m 2021-04-07 01:45:19.614 [debug] <0.290.0> Lager installed handler lager_forwarder_backend into rabbit_log_lager_event
+[36;1mrabbit_1           |[0m 2021-04-07 01:45:19.615 [debug] <0.293.0> Lager installed handler lager_forwarder_backend into rabbit_log_channel_lager_event
+[36;1mrabbit_1           |[0m 2021-04-07 01:45:19.615 [debug] <0.299.0> Lager installed handler lager_forwarder_backend into rabbit_log_feature_flags_lager_event
+[36;1mrabbit_1           |[0m 2021-04-07 01:45:19.615 [debug] <0.296.0> Lager installed handler lager_forwarder_backend into rabbit_log_connection_lager_event
+[36;1mrabbit_1           |[0m 2021-04-07 01:45:19.615 [debug] <0.302.0> Lager installed handler lager_forwarder_backend into rabbit_log_federation_lager_event
+[36;1mrabbit_1           |[0m 2021-04-07 01:45:19.615 [debug] <0.308.0> Lager installed handler lager_forwarder_backend into rabbit_log_mirroring_lager_event
+[36;1mrabbit_1           |[0m 2021-04-07 01:45:19.615 [debug] <0.305.0> Lager installed handler lager_forwarder_backend into rabbit_log_ldap_lager_event
+[36;1mrabbit_1           |[0m 2021-04-07 01:45:19.615 [debug] <0.311.0> Lager installed handler lager_forwarder_backend into rabbit_log_prelaunch_lager_event
+[36;1mrabbit_1           |[0m 2021-04-07 01:45:19.615 [debug] <0.314.0> Lager installed handler lager_forwarder_backend into rabbit_log_queue_lager_event
+[36;1mrabbit_1           |[0m 2021-04-07 01:45:19.615 [debug] <0.317.0> Lager installed handler lager_forwarder_backend into rabbit_log_ra_lager_event
+[36;1mrabbit_1           |[0m 2021-04-07 01:45:19.615 [debug] <0.320.0> Lager installed handler lager_forwarder_backend into rabbit_log_shovel_lager_event
+[36;1mrabbit_1           |[0m 2021-04-07 01:45:19.615 [debug] <0.323.0> Lager installed handler lager_forwarder_backend into rabbit_log_upgrade_lager_event
+[36;1mrabbit_1           |[0m 2021-04-07 01:45:19.624 [info] <0.44.0> Application lager started on node rabbit@localhost
+[35;1mrasa-x_1           |[0m [2021-04-07 01:45:19 +0000] - (sanic.access)[INFO][172.20.0.11:55820]: GET http://localhost/api/conversations/435f3379d8e041c781a2c684481b5466?format=full_conversation&since=1617757740.1070342&environment=production  302 0
+[34mnginx_1            |[0m 172.20.0.1 - - [07/Apr/2021:01:45:19 +0000] "GET /api/conversations/435f3379d8e041c781a2c684481b5466?format=full_conversation&since=1617757740.1070342&environment=production HTTP/1.1" 302 0 "http://localhost/interactive" "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:87.0) Gecko/20100101 Firefox/87.0"
+[35;1mrasa-x_1           |[0m WARNING:rasax.community.database.utils:DB revision(s) do not match migration scripts revision(s):
+[35;1mrasa-x_1           |[0m WARNING:rasax.community.database.utils:DB revision: ['68a8a531a5ee']
+[35;1mrasa-x_1           |[0m WARNING:rasax.community.database.utils:Migration scripts revision: ['839cc1322002']
+[35;1mrasa-x_1           |[0m [2021-04-07 01:45:19 +0000] - (sanic.access)[INFO][172.20.0.11:55822]: GET http://localhost/api/health  200 146
+[34mnginx_1            |[0m 172.20.0.1 - - [07/Apr/2021:01:45:19 +0000] "GET /api/health HTTP/1.1" 200 146 "http://localhost/interactive" "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:87.0) Gecko/20100101 Firefox/87.0"
+[36;1mrabbit_1           |[0m 2021-04-07 01:45:20.107 [debug] <0.280.0> Lager installed handler lager_backend_throttle into lager_event
+[33mdb-migration_1     |[0m INFO:alembic.runtime.migration:Running upgrade 304e0754a200 -> 3fbc8790762e, This migration is left empty because of issues with the 0.26.2 release.
+[33mdb-migration_1     |[0m INFO:alembic.runtime.migration:Running upgrade 3fbc8790762e -> ef93223786ba, Remove slot value index completely
+[33mdb-migration_1     |[0m INFO:alembic.runtime.migration:Running upgrade ef93223786ba, 66bada3d94ae -> 73f46e0b7789, Merge migrations from 0.26.x.
+[33mdb-migration_1     |[0m INFO:alembic.runtime.migration:Running upgrade 73f46e0b7789 -> b092b0fe590d, Remove duplicate responses.
+[36;1mrabbit_1           |[0m 2021-04-07 01:45:21.052 [info] <0.44.0> Application mnesia started on node rabbit@localhost
+[36;1mrabbit_1           |[0m 2021-04-07 01:45:21.053 [info] <0.269.0> 
+[36;1mrabbit_1           |[0m  Starting RabbitMQ 3.8.9 on Erlang 22.3
+[36;1mrabbit_1           |[0m  Copyright (c) 2007-2020 VMware, Inc. or its affiliates.
+[36;1mrabbit_1           |[0m  Licensed under the MPL 2.0. Website: https://rabbitmq.com
+[36;1mrabbit_1           |[0m 
+[36;1mrabbit_1           |[0m   ##  ##      RabbitMQ 3.8.9
+[36;1mrabbit_1           |[0m   ##  ##
+[36;1mrabbit_1           |[0m   ##########  Copyright (c) 2007-2020 VMware, Inc. or its affiliates.
+[36;1mrabbit_1           |[0m   ######  ##
+[36;1mrabbit_1           |[0m   ##########  Licensed under the MPL 2.0. Website: https://rabbitmq.com
+[36;1mrabbit_1           |[0m 
+[36;1mrabbit_1           |[0m   Doc guides: https://rabbitmq.com/documentation.html
+[36;1mrabbit_1           |[0m   Support:    https://rabbitmq.com/contact.html
+[36;1mrabbit_1           |[0m   Tutorials:  https://rabbitmq.com/getstarted.html
+[36;1mrabbit_1           |[0m   Monitoring: https://rabbitmq.com/monitoring.html
+[36;1mrabbit_1           |[0m 
+[36;1mrabbit_1           |[0m   Logs: <stdout>
+[36;1mrabbit_1           |[0m 
+[36;1mrabbit_1           |[0m   Config file(s): /opt/bitnami/rabbitmq/etc/rabbitmq/rabbitmq.conf
+[36;1mrabbit_1           |[0m 
+[36;1mrabbit_1           |[0m   Starting broker...2021-04-07 01:45:21.054 [info] <0.269.0> 
+[36;1mrabbit_1           |[0m  node           : rabbit@localhost
+[36;1mrabbit_1           |[0m  home dir       : /opt/bitnami/rabbitmq/.rabbitmq
+[36;1mrabbit_1           |[0m  config file(s) : /opt/bitnami/rabbitmq/etc/rabbitmq/rabbitmq.conf
+[36;1mrabbit_1           |[0m  cookie hash    : rsHudZkGgx1Pe3oRzetIMQ==
+[36;1mrabbit_1           |[0m  log(s)         : <stdout>
+[36;1mrabbit_1           |[0m  database dir   : /bitnami/rabbitmq/mnesia/rabbit@localhost
+[36;1mrabbit_1           |[0m 2021-04-07 01:45:21.061 [info] <0.269.0> Running boot step pre_boot defined by app rabbit
+[36;1mrabbit_1           |[0m 2021-04-07 01:45:21.061 [info] <0.269.0> Running boot step rabbit_core_metrics defined by app rabbit
+[36;1mrabbit_1           |[0m 2021-04-07 01:45:21.062 [info] <0.269.0> Running boot step rabbit_alarm defined by app rabbit
+[36;1mrabbit_1           |[0m 2021-04-07 01:45:21.069 [info] <0.416.0> Memory high watermark set to 3130 MiB (3282906316 bytes) of 7827 MiB (8207265792 bytes) total
+[36;1mrabbit_1           |[0m 2021-04-07 01:45:21.074 [info] <0.442.0> Enabling free disk space monitoring
+[36;1mrabbit_1           |[0m 2021-04-07 01:45:21.075 [info] <0.442.0> Disk free limit set to 8207MB
+[36;1mrabbit_1           |[0m 2021-04-07 01:45:21.079 [info] <0.269.0> Running boot step code_server_cache defined by app rabbit
+[36;1mrabbit_1           |[0m 2021-04-07 01:45:21.079 [info] <0.269.0> Running boot step file_handle_cache defined by app rabbit
+[36;1mrabbit_1           |[0m 2021-04-07 01:45:21.080 [info] <0.447.0> Limiting to approx 1048479 file handles (943629 sockets)
+[36;1mrabbit_1           |[0m 2021-04-07 01:45:21.080 [info] <0.448.0> FHC read buffering:  OFF
+[36;1mrabbit_1           |[0m 2021-04-07 01:45:21.080 [info] <0.448.0> FHC write buffering: ON
+[36;1mrabbit_1           |[0m 2021-04-07 01:45:21.082 [info] <0.269.0> Running boot step worker_pool defined by app rabbit
+[36;1mrabbit_1           |[0m 2021-04-07 01:45:21.082 [info] <0.379.0> Will use 4 processes for default worker pool
+[36;1mrabbit_1           |[0m 2021-04-07 01:45:21.082 [info] <0.379.0> Starting worker pool 'worker_pool' with 4 processes in it
+[36;1mrabbit_1           |[0m 2021-04-07 01:45:21.082 [info] <0.269.0> Running boot step database defined by app rabbit
+[36;1mrabbit_1           |[0m 2021-04-07 01:45:21.084 [info] <0.269.0> Waiting for Mnesia tables for 30000 ms, 9 retries left
+[36;1mrabbit_1           |[0m 2021-04-07 01:45:21.085 [info] <0.269.0> Successfully synced tables from a peer
+[36;1mrabbit_1           |[0m 2021-04-07 01:45:21.085 [info] <0.269.0> Waiting for Mnesia tables for 30000 ms, 9 retries left
+[36;1mrabbit_1           |[0m 2021-04-07 01:45:21.086 [info] <0.269.0> Successfully synced tables from a peer
+[36;1mrabbit_1           |[0m 2021-04-07 01:45:21.104 [info] <0.269.0> Waiting for Mnesia tables for 30000 ms, 9 retries left
+[36;1mrabbit_1           |[0m 2021-04-07 01:45:21.104 [info] <0.269.0> Successfully synced tables from a peer
+[36;1mrabbit_1           |[0m 2021-04-07 01:45:21.104 [info] <0.269.0> Peer discovery backend rabbit_peer_discovery_classic_config does not support registration, skipping registration.
+[36;1mrabbit_1           |[0m 2021-04-07 01:45:21.104 [info] <0.269.0> Running boot step database_sync defined by app rabbit
+[36;1mrabbit_1           |[0m 2021-04-07 01:45:21.104 [info] <0.269.0> Running boot step feature_flags defined by app rabbit
+[36;1mrabbit_1           |[0m 2021-04-07 01:45:21.104 [info] <0.269.0> Running boot step codec_correctness_check defined by app rabbit
+[36;1mrabbit_1           |[0m 2021-04-07 01:45:21.105 [info] <0.269.0> Running boot step external_infrastructure defined by app rabbit
+[36;1mrabbit_1           |[0m 2021-04-07 01:45:21.105 [info] <0.269.0> Running boot step rabbit_registry defined by app rabbit
+[36;1mrabbit_1           |[0m 2021-04-07 01:45:21.105 [info] <0.269.0> Running boot step rabbit_auth_mechanism_cr_demo defined by app rabbit
+[36;1mrabbit_1           |[0m 2021-04-07 01:45:21.105 [info] <0.269.0> Running boot step rabbit_queue_location_random defined by app rabbit
+[36;1mrabbit_1           |[0m 2021-04-07 01:45:21.105 [info] <0.269.0> Running boot step rabbit_event defined by app rabbit
+[36;1mrabbit_1           |[0m 2021-04-07 01:45:21.106 [info] <0.269.0> Running boot step rabbit_auth_mechanism_amqplain defined by app rabbit
+[36;1mrabbit_1           |[0m 2021-04-07 01:45:21.106 [info] <0.269.0> Running boot step rabbit_auth_mechanism_plain defined by app rabbit
+[36;1mrabbit_1           |[0m 2021-04-07 01:45:21.106 [info] <0.269.0> Running boot step rabbit_exchange_type_direct defined by app rabbit
+[36;1mrabbit_1           |[0m 2021-04-07 01:45:21.106 [info] <0.269.0> Running boot step rabbit_exchange_type_fanout defined by app rabbit
+[36;1mrabbit_1           |[0m 2021-04-07 01:45:21.107 [info] <0.269.0> Running boot step rabbit_exchange_type_headers defined by app rabbit
+[36;1mrabbit_1           |[0m 2021-04-07 01:45:21.107 [info] <0.269.0> Running boot step rabbit_exchange_type_topic defined by app rabbit
+[36;1mrabbit_1           |[0m 2021-04-07 01:45:21.107 [info] <0.269.0> Running boot step rabbit_mirror_queue_mode_all defined by app rabbit
+[36;1mrabbit_1           |[0m 2021-04-07 01:45:21.108 [info] <0.269.0> Running boot step rabbit_mirror_queue_mode_exactly defined by app rabbit
+[36;1mrabbit_1           |[0m 2021-04-07 01:45:21.108 [info] <0.269.0> Running boot step rabbit_mirror_queue_mode_nodes defined by app rabbit
+[36;1mrabbit_1           |[0m 2021-04-07 01:45:21.108 [info] <0.269.0> Running boot step rabbit_priority_queue defined by app rabbit
+[36;1mrabbit_1           |[0m 2021-04-07 01:45:21.108 [info] <0.269.0> Priority queues enabled, real BQ is rabbit_variable_queue
+[36;1mrabbit_1           |[0m 2021-04-07 01:45:21.108 [info] <0.269.0> Running boot step rabbit_queue_location_client_local defined by app rabbit
+[36;1mrabbit_1           |[0m 2021-04-07 01:45:21.108 [info] <0.269.0> Running boot step rabbit_queue_location_min_masters defined by app rabbit
+[36;1mrabbit_1           |[0m 2021-04-07 01:45:21.108 [info] <0.269.0> Running boot step kernel_ready defined by app rabbit
+[36;1mrabbit_1           |[0m 2021-04-07 01:45:21.108 [info] <0.269.0> Running boot step rabbit_sysmon_minder defined by app rabbit
+[36;1mrabbit_1           |[0m 2021-04-07 01:45:21.109 [info] <0.269.0> Running boot step rabbit_epmd_monitor defined by app rabbit
+[36;1mrabbit_1           |[0m 2021-04-07 01:45:21.109 [info] <0.470.0> epmd monitor knows us, inter-node communication (distribution) port: 25672
+[36;1mrabbit_1           |[0m 2021-04-07 01:45:21.109 [info] <0.269.0> Running boot step guid_generator defined by app rabbit
+[36;1mrabbit_1           |[0m 2021-04-07 01:45:21.113 [info] <0.269.0> Running boot step rabbit_node_monitor defined by app rabbit
+[36;1mrabbit_1           |[0m 2021-04-07 01:45:21.113 [info] <0.474.0> Starting rabbit_node_monitor
+[36;1mrabbit_1           |[0m 2021-04-07 01:45:21.113 [info] <0.269.0> Running boot step delegate_sup defined by app rabbit
+[36;1mrabbit_1           |[0m 2021-04-07 01:45:21.115 [info] <0.269.0> Running boot step rabbit_memory_monitor defined by app rabbit
+[36;1mrabbit_1           |[0m 2021-04-07 01:45:21.115 [info] <0.269.0> Running boot step core_initialized defined by app rabbit
+[36;1mrabbit_1           |[0m 2021-04-07 01:45:21.115 [info] <0.269.0> Running boot step upgrade_queues defined by app rabbit
+[36;1mrabbit_1           |[0m 2021-04-07 01:45:21.130 [info] <0.269.0> Running boot step rabbit_connection_tracking defined by app rabbit
+[36;1mrabbit_1           |[0m 2021-04-07 01:45:21.130 [info] <0.269.0> Running boot step rabbit_connection_tracking_handler defined by app rabbit
+[36;1mrabbit_1           |[0m 2021-04-07 01:45:21.130 [info] <0.269.0> Running boot step rabbit_exchange_parameters defined by app rabbit
+[36;1mrabbit_1           |[0m 2021-04-07 01:45:21.131 [info] <0.269.0> Running boot step rabbit_mirror_queue_misc defined by app rabbit
+[36;1mrabbit_1           |[0m 2021-04-07 01:45:21.131 [info] <0.269.0> Running boot step rabbit_policies defined by app rabbit
+[36;1mrabbit_1           |[0m 2021-04-07 01:45:21.132 [info] <0.269.0> Running boot step rabbit_policy defined by app rabbit
+[36;1mrabbit_1           |[0m 2021-04-07 01:45:21.132 [info] <0.269.0> Running boot step rabbit_queue_location_validator defined by app rabbit
+[36;1mrabbit_1           |[0m 2021-04-07 01:45:21.132 [info] <0.269.0> Running boot step rabbit_quorum_memory_manager defined by app rabbit
+[36;1mrabbit_1           |[0m 2021-04-07 01:45:21.132 [info] <0.269.0> Running boot step rabbit_vhost_limit defined by app rabbit
+[36;1mrabbit_1           |[0m 2021-04-07 01:45:21.133 [info] <0.269.0> Running boot step recovery defined by app rabbit
+[36;1mrabbit_1           |[0m 2021-04-07 01:45:21.134 [info] <0.503.0> Making sure data directory '/bitnami/rabbitmq/mnesia/rabbit@localhost/msg_stores/vhosts/628WB79CIFDYO9LJI6DKMI09L' for vhost '/' exists
+[35;1mrasa-x_1           |[0m [2021-04-07 01:45:21 +0000] - (sanic.access)[INFO][172.20.0.8:53900]: GET http://rasa-x:5002/api/config?token=ei5bqYBnmdi+MIZ2xv2eAg==  503 40
+[36;1mrabbit_1           |[0m 2021-04-07 01:45:21.139 [info] <0.503.0> Starting message stores for vhost '/'
+[36;1mrabbit_1           |[0m 2021-04-07 01:45:21.139 [info] <0.507.0> Message store "628WB79CIFDYO9LJI6DKMI09L/msg_store_transient": using rabbit_msg_store_ets_index to provide index
+[36;1mrabbit_1           |[0m 2021-04-07 01:45:21.140 [info] <0.503.0> Started message store of type transient for vhost '/'
+[36;1mrabbit_1           |[0m 2021-04-07 01:45:21.141 [info] <0.511.0> Message store "628WB79CIFDYO9LJI6DKMI09L/msg_store_persistent": using rabbit_msg_store_ets_index to provide index
+[36;1mrabbit_1           |[0m 2021-04-07 01:45:21.142 [info] <0.503.0> Started message store of type persistent for vhost '/'
+[36;1mrabbit_1           |[0m 2021-04-07 01:45:21.143 [info] <0.269.0> Running boot step empty_db_check defined by app rabbit
+[36;1mrabbit_1           |[0m 2021-04-07 01:45:21.143 [info] <0.269.0> Will not seed default virtual host and user: have definitions to load...
+[36;1mrabbit_1           |[0m 2021-04-07 01:45:21.143 [info] <0.269.0> Running boot step rabbit_looking_glass defined by app rabbit
+[36;1mrabbit_1           |[0m 2021-04-07 01:45:21.144 [info] <0.269.0> Running boot step rabbit_core_metrics_gc defined by app rabbit
+[36;1mrabbit_1           |[0m 2021-04-07 01:45:21.144 [info] <0.269.0> Running boot step background_gc defined by app rabbit
+[36;1mrabbit_1           |[0m 2021-04-07 01:45:21.144 [info] <0.269.0> Running boot step connection_tracking defined by app rabbit
+[36;1mrabbit_1           |[0m 2021-04-07 01:45:21.144 [info] <0.269.0> Setting up a table for connection tracking on this node: tracked_connection_on_node_rabbit@localhost
+[36;1mrabbit_1           |[0m 2021-04-07 01:45:21.144 [info] <0.269.0> Setting up a table for per-vhost connection counting on this node: tracked_connection_per_vhost_on_node_rabbit@localhost
+[36;1mrabbit_1           |[0m 2021-04-07 01:45:21.144 [info] <0.269.0> Running boot step routing_ready defined by app rabbit
+[36;1mrabbit_1           |[0m 2021-04-07 01:45:21.144 [info] <0.269.0> Running boot step pre_flight defined by app rabbit
+[36;1mrabbit_1           |[0m 2021-04-07 01:45:21.144 [info] <0.269.0> Running boot step notify_cluster defined by app rabbit
+[36;1mrabbit_1           |[0m 2021-04-07 01:45:21.144 [info] <0.269.0> Running boot step networking defined by app rabbit
+[36;1mrabbit_1           |[0m 2021-04-07 01:45:21.145 [info] <0.269.0> Running boot step definition_import_worker_pool defined by app rabbit
+[36;1mrabbit_1           |[0m 2021-04-07 01:45:21.145 [info] <0.379.0> Starting worker pool 'definition_import_pool' with 4 processes in it
+[36;1mrabbit_1           |[0m 2021-04-07 01:45:21.145 [info] <0.269.0> Running boot step cluster_name defined by app rabbit
+[36;1mrabbit_1           |[0m 2021-04-07 01:45:21.145 [info] <0.269.0> Running boot step direct_client defined by app rabbit
+[36;1mrabbit_1           |[0m 2021-04-07 01:45:21.146 [info] <0.44.0> Application rabbit started on node rabbit@localhost
+[33mdb-migration_1     |[0m INFO:alembic.runtime.migration:Running upgrade b092b0fe590d -> 36fa577b374d, Rename table name `template` and column `template`.
+[33mdb-migration_1     |[0m INFO:alembic.runtime.migration:Running upgrade 36fa577b374d -> 425bd8f628db, Add missing permissions for `tester` and `annotator` roles.
+[36;1mrabbit_1           |[0m 2021-04-07 01:45:21.461 [info] <0.541.0> Feature flags: list of feature flags found:
+[36;1mrabbit_1           |[0m 2021-04-07 01:45:21.461 [info] <0.541.0> Feature flags:   [ ] drop_unroutable_metric
+[36;1mrabbit_1           |[0m 2021-04-07 01:45:21.461 [info] <0.541.0> Feature flags:   [ ] empty_basic_get_metric
+[36;1mrabbit_1           |[0m 2021-04-07 01:45:21.461 [info] <0.541.0> Feature flags:   [x] implicit_default_bindings
+[36;1mrabbit_1           |[0m 2021-04-07 01:45:21.461 [info] <0.541.0> Feature flags:   [x] maintenance_mode_status
+[36;1mrabbit_1           |[0m 2021-04-07 01:45:21.461 [info] <0.541.0> Feature flags:   [x] quorum_queue
+[36;1mrabbit_1           |[0m 2021-04-07 01:45:21.461 [info] <0.541.0> Feature flags:   [x] virtual_host_metadata
+[36;1mrabbit_1           |[0m 2021-04-07 01:45:21.461 [info] <0.541.0> Feature flags: feature flag states written to disk: yes
+[36;1mrabbit_1           |[0m 2021-04-07 01:45:21.625 [info] <0.541.0> Running boot step rabbit_mgmt_db_handler defined by app rabbitmq_management_agent
+[36;1mrabbit_1           |[0m 2021-04-07 01:45:21.625 [info] <0.541.0> Management plugin: using rates mode 'basic'
+[36;1mrabbit_1           |[0m 2021-04-07 01:45:21.629 [info] <0.44.0> Application rabbitmq_management_agent started on node rabbit@localhost
+[33mdb-migration_1     |[0m [2021-04-07 01:45:21 +0000] - (sanic.access)[INFO][127.0.0.1:42642]: GET http://localhost:8000/health  200 56
+[36;1mrabbit_1           |[0m 2021-04-07 01:45:21.649 [info] <0.44.0> Application cowlib started on node rabbit@localhost
+[36;1mrabbit_1           |[0m 2021-04-07 01:45:21.663 [info] <0.44.0> Application cowboy started on node rabbit@localhost
+[36;1mrabbit_1           |[0m 2021-04-07 01:45:21.676 [info] <0.44.0> Application rabbitmq_web_dispatch started on node rabbit@localhost
+[36;1mrabbit_1           |[0m 2021-04-07 01:45:21.689 [info] <0.44.0> Application amqp_client started on node rabbit@localhost
+[36;1mrabbit_1           |[0m 2021-04-07 01:45:21.702 [info] <0.541.0> Running boot step rabbit_mgmt_reset_handler defined by app rabbitmq_management
+[36;1mrabbit_1           |[0m 2021-04-07 01:45:21.702 [info] <0.541.0> Running boot step rabbit_management_load_definitions defined by app rabbitmq_management
+[36;1mrabbit_1           |[0m 2021-04-07 01:45:21.729 [info] <0.610.0> Management plugin: HTTP (non-TLS) listener started on port 15672
+[36;1mrabbit_1           |[0m 2021-04-07 01:45:21.730 [info] <0.716.0> Statistics database started.
+[36;1mrabbit_1           |[0m 2021-04-07 01:45:21.730 [info] <0.715.0> Starting worker pool 'management_worker_pool' with 3 processes in it
+[36;1mrabbit_1           |[0m 2021-04-07 01:45:21.731 [info] <0.44.0> Application rabbitmq_management started on node rabbit@localhost
+[36;1mrabbit_1           |[0m 2021-04-07 01:45:21.731 [info] <0.541.0> Ready to start client connection listeners
+[36;1mrabbit_1           |[0m 2021-04-07 01:45:21.733 [info] <0.737.0> started TCP listener on [::]:5672
+[36;1mrabbit_1           |[0m 2021-04-07 01:45:21.850 [info] <0.541.0> Server startup complete; 3 plugins started.
+[36;1mrabbit_1           |[0m  * rabbitmq_management
+[36;1mrabbit_1           |[0m  * rabbitmq_web_dispatch
+[36;1mrabbit_1           |[0m  * rabbitmq_management_agent
+[36;1mrabbit_1           |[0m  completed with 3 plugins.
+[36;1mrabbit_1           |[0m 2021-04-07 01:45:21.850 [info] <0.541.0> Resetting node maintenance status
+[35;1mrasa-x_1           |[0m [2021-04-07 01:45:21 +0000] - (sanic.access)[INFO][172.20.0.9:56542]: GET http://rasa-x:5002/api/config?token=ei5bqYBnmdi+MIZ2xv2eAg==  503 40
+[35;1mrasa-x_1           |[0m [2021-04-07 01:45:22 +0000] - (sanic.access)[INFO][172.20.0.11:55838]: GET http://localhost/api/conversations/435f3379d8e041c781a2c684481b5466?format=full_conversation&since=1617757740.1070342&environment=production  302 0
+[34mnginx_1            |[0m 172.20.0.1 - - [07/Apr/2021:01:45:22 +0000] "GET /api/conversations/435f3379d8e041c781a2c684481b5466?format=full_conversation&since=1617757740.1070342&environment=production HTTP/1.1" 302 0 "http://localhost/interactive" "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:87.0) Gecko/20100101 Firefox/87.0"
+[35;1mrasa-x_1           |[0m WARNING:rasax.community.database.utils:DB revision(s) do not match migration scripts revision(s):
+[35;1mrasa-x_1           |[0m WARNING:rasax.community.database.utils:DB revision: ['36fa577b374d']
+[35;1mrasa-x_1           |[0m WARNING:rasax.community.database.utils:Migration scripts revision: ['839cc1322002']
+[35;1mrasa-x_1           |[0m [2021-04-07 01:45:23 +0000] - (sanic.access)[INFO][172.20.0.11:55840]: GET http://localhost/api/health  200 145
+[34mnginx_1            |[0m 172.20.0.1 - - [07/Apr/2021:01:45:23 +0000] "GET /api/health HTTP/1.1" 200 145 "http://localhost/interactive" "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:87.0) Gecko/20100101 Firefox/87.0"
+[33mdb-migration_1     |[0m INFO:alembic.runtime.migration:Running upgrade 425bd8f628db -> 7b2497cd88dc, Add `username` field to `conversation` table.
+[33mdb-migration_1     |[0m INFO:alembic.runtime.migration:Running upgrade 7b2497cd88dc -> ac3fba1c2b86, Add index for `created_by` foreign key.
+[33mdb-migration_1     |[0m INFO:alembic.runtime.migration:Running upgrade 8893bba2a522 -> b67a67032c7f, This migration comes from RBAC backport for `0.24.x`.
+[33mdb-migration_1     |[0m It is empty because all the permissions that are required for
+[33mdb-migration_1     |[0m role-based access control fixes were already added before.
+[33mdb-migration_1     |[0m INFO:alembic.runtime.migration:Running upgrade ac3fba1c2b86, b67a67032c7f -> 9e7a97234e85, Merge the migrations from the 0.24.x patch release with
+[33mdb-migration_1     |[0m Rasa X databases which didn't run this backported migration.
+[33mdb-migration_1     |[0m INFO:alembic.runtime.migration:Running upgrade 9e7a97234e85 -> 8a8562256a8e, Add `hash` column and an index for it to `response` table.
+[33mdb-migration_1     |[0m INFO:alembic.runtime.migration:Running upgrade ac3fba1c2b86 -> af3596f6982f, Add the column `in_training_data` to the table `message_log`.
+[35;1mrasa-x_1           |[0m [2021-04-07 01:45:26 +0000] - (sanic.access)[INFO][172.20.0.11:55848]: GET http://localhost/api/conversations/435f3379d8e041c781a2c684481b5466?format=full_conversation&since=1617757740.1070342&environment=production  302 0
+[34mnginx_1            |[0m 172.20.0.1 - - [07/Apr/2021:01:45:26 +0000] "GET /api/conversations/435f3379d8e041c781a2c684481b5466?format=full_conversation&since=1617757740.1070342&environment=production HTTP/1.1" 302 0 "http://localhost/interactive" "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:87.0) Gecko/20100101 Firefox/87.0"
+[35;1mrasa-x_1           |[0m WARNING:rasax.community.database.utils:DB revision(s) do not match migration scripts revision(s):
+[35;1mrasa-x_1           |[0m WARNING:rasax.community.database.utils:DB revision: ['8a8562256a8e']
+[35;1mrasa-x_1           |[0m WARNING:rasax.community.database.utils:Migration scripts revision: ['839cc1322002']
+[35;1mrasa-x_1           |[0m [2021-04-07 01:45:26 +0000] - (sanic.access)[INFO][172.20.0.11:55850]: GET http://localhost/api/health  200 146
+[34mnginx_1            |[0m 172.20.0.1 - - [07/Apr/2021:01:45:26 +0000] "GET /api/health HTTP/1.1" 200 146 "http://localhost/interactive" "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:87.0) Gecko/20100101 Firefox/87.0"
+[35;1mrasa-x_1           |[0m [2021-04-07 01:45:26 +0000] - (sanic.access)[INFO][172.20.0.8:53928]: GET http://rasa-x:5002/api/config?token=ei5bqYBnmdi+MIZ2xv2eAg==  503 40
+[33mdb-migration_1     |[0m [2021-04-07 01:45:26 +0000] - (sanic.access)[INFO][127.0.0.1:42670]: GET http://localhost:8000/health  200 56
+[33mdb-migration_1     |[0m INFO:alembic.runtime.migration:Running upgrade af3596f6982f, 8a8562256a8e -> eb2b98905e7e, Merge heads af3596f6982f and 8a8562256a8e.
+[33mdb-migration_1     |[0m INFO:alembic.runtime.migration:Running upgrade eb2b98905e7e -> 479084222950, Add `model` column to table `message_log`.
+[33mdb-migration_1     |[0m INFO:alembic.runtime.migration:Running upgrade 479084222950 -> 90b60aff4920, Add a 'review_status' column to the 'conversation' table.
+[33mdb-migration_1     |[0m INFO:alembic.runtime.migration:Running upgrade 90b60aff4920 -> 473b15141809, Add `conversations.view.metadata.get` permission to `annotator` role.
+[35;1mrasa-x_1           |[0m [2021-04-07 01:45:26 +0000] - (sanic.access)[INFO][172.20.0.9:56576]: GET http://rasa-x:5002/api/config?token=ei5bqYBnmdi+MIZ2xv2eAg==  503 40
+[35;1mrasa-x_1           |[0m [2021-04-07 01:45:27 +0000] - (sanic.access)[INFO][172.20.0.11:55870]: GET http://localhost/api/projects/default/git_repositories/1/status  302 0
+[34mnginx_1            |[0m 172.20.0.1 - - [07/Apr/2021:01:45:27 +0000] "GET /api/projects/default/git_repositories/1/status HTTP/1.1" 302 0 "http://localhost/interactive" "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:87.0) Gecko/20100101 Firefox/87.0"
+[35;1mrasa-x_1           |[0m WARNING:rasax.community.database.utils:DB revision(s) do not match migration scripts revision(s):
+[35;1mrasa-x_1           |[0m WARNING:rasax.community.database.utils:DB revision: ['90b60aff4920']
+[35;1mrasa-x_1           |[0m WARNING:rasax.community.database.utils:Migration scripts revision: ['839cc1322002']
+[35;1mrasa-x_1           |[0m [2021-04-07 01:45:27 +0000] - (sanic.access)[INFO][172.20.0.11:55872]: GET http://localhost/api/health  200 146
+[34mnginx_1            |[0m 172.20.0.1 - - [07/Apr/2021:01:45:27 +0000] "GET /api/health HTTP/1.1" 200 146 "http://localhost/interactive" "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:87.0) Gecko/20100101 Firefox/87.0"
+[33mdb-migration_1     |[0m INFO:alembic.runtime.migration:Running upgrade 473b15141809 -> 9fde59db88e6, Add conversation_id column to message_log
+[33mdb-migration_1     |[0m INFO:alembic.runtime.migration:Running upgrade 9fde59db88e6 -> 66d1adeeec82, Add username column to GitRepository
+[33mdb-migration_1     |[0m INFO:alembic.runtime.migration:Running upgrade 66d1adeeec82 -> 3d91317b7460, Add explicit domain.* permissions for the admin role
+[33mdb-migration_1     |[0m INFO:alembic.runtime.migration:Running upgrade 3d91317b7460 -> 6af361a57ca6, Add is_rule column to stories
+[35;1mrasa-x_1           |[0m [2021-04-07 01:45:31 +0000] - (sanic.access)[INFO][172.20.0.8:53960]: GET http://rasa-x:5002/api/config?token=ei5bqYBnmdi+MIZ2xv2eAg==  503 40
+[33mdb-migration_1     |[0m [2021-04-07 01:45:31 +0000] - (sanic.access)[INFO][127.0.0.1:42702]: GET http://localhost:8000/health  200 56
+[35;1mrasa-x_1           |[0m [2021-04-07 01:45:31 +0000] - (sanic.access)[INFO][172.20.0.9:56602]: GET http://rasa-x:5002/api/config?token=ei5bqYBnmdi+MIZ2xv2eAg==  503 40
+[33mdb-migration_1     |[0m INFO:alembic.runtime.migration:Running upgrade 6af361a57ca6 -> cafd4ac9ccf9, Remove `created_by` foreign key constraint in `conversations` table.
+[33mdb-migration_1     |[0m INFO:alembic.runtime.migration:Running upgrade cafd4ac9ccf9 -> 9b0753451554, Add new domain-related columns
+[33mdb-migration_1     |[0m INFO:alembic.runtime.migration:Running upgrade 9b0753451554 -> d9156a63aa00, Add is_test column to stories
+[33mdb-migration_1     |[0m INFO:alembic.runtime.migration:Running upgrade d9156a63aa00 -> 052172fdb4b3, Change domain_slot `value` and `initial_value` to variabale-size columns.
+[33mdb-migration_1     |[0m INFO:alembic.runtime.migration:Running upgrade 052172fdb4b3 -> 43a803b8c1fd, Add constraint to the Domain table.
+[35;1mrasa-x_1           |[0m [2021-04-07 01:45:33 +0000] - (sanic.access)[INFO][172.20.0.11:55892]: GET http://localhost/api/conversations/435f3379d8e041c781a2c684481b5466?format=full_conversation&since=1617757740.1070342&environment=production  302 0
+[34mnginx_1            |[0m 172.20.0.1 - - [07/Apr/2021:01:45:33 +0000] "GET /api/conversations/435f3379d8e041c781a2c684481b5466?format=full_conversation&since=1617757740.1070342&environment=production HTTP/1.1" 302 0 "http://localhost/interactive" "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:87.0) Gecko/20100101 Firefox/87.0"
+[35;1mrasa-x_1           |[0m WARNING:rasax.community.database.utils:DB revision(s) do not match migration scripts revision(s):
+[35;1mrasa-x_1           |[0m WARNING:rasax.community.database.utils:DB revision: ['052172fdb4b3']
+[35;1mrasa-x_1           |[0m WARNING:rasax.community.database.utils:Migration scripts revision: ['839cc1322002']
+[35;1mrasa-x_1           |[0m [2021-04-07 01:45:33 +0000] - (sanic.access)[INFO][172.20.0.11:55894]: GET http://localhost/api/health  200 146
+[34mnginx_1            |[0m 172.20.0.1 - - [07/Apr/2021:01:45:33 +0000] "GET /api/health HTTP/1.1" 200 146 "http://localhost/interactive" "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:87.0) Gecko/20100101 Firefox/87.0"
+[33mdb-migration_1     |[0m INFO:alembic.runtime.migration:Running upgrade 43a803b8c1fd -> 17e6230c5f40, Add migration for PicPay fix in 0.31.x and 0.32.x.
+[33mdb-migration_1     |[0m INFO:alembic.runtime.migration:Running upgrade 17e6230c5f40, 43a803b8c1fd -> e4ed14831f48, Merge branched out revision with main migration path.
+[33mdb-migration_1     |[0m INFO:alembic.runtime.migration:Running upgrade e4ed14831f48 -> 47396643a5b4, Add filename column to response.
+[33mdb-migration_1     |[0m INFO:alembic.runtime.migration:Running upgrade 47396643a5b4 -> 895af7dcae07, Add message tags.
+[33mdb-migration_1     |[0m INFO:alembic.runtime.migration:Running upgrade 895af7dcae07 -> 524fbfe6bac0, Add all new tables for NLU intent insights.
+[33mdb-migration_1     |[0m INFO:alembic.runtime.migration:Running upgrade 524fbfe6bac0 -> d5fa2187f905, Add permissions to insights for different user roles.
+[35;1mrasa-x_1           |[0m [2021-04-07 01:45:36 +0000] - (sanic.access)[INFO][172.20.0.8:53982]: GET http://rasa-x:5002/api/config?token=ei5bqYBnmdi+MIZ2xv2eAg==  503 40
+[35;1mrasa-x_1           |[0m [2021-04-07 01:45:36 +0000] - (sanic.access)[INFO][172.20.0.11:55910]: GET http://localhost/api/conversations/435f3379d8e041c781a2c684481b5466?format=full_conversation&since=1617757740.1070342&environment=production  302 0
+[34mnginx_1            |[0m 172.20.0.1 - - [07/Apr/2021:01:45:36 +0000] "GET /api/conversations/435f3379d8e041c781a2c684481b5466?format=full_conversation&since=1617757740.1070342&environment=production HTTP/1.1" 302 0 "http://localhost/interactive" "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:87.0) Gecko/20100101 Firefox/87.0"
+[35;1mrasa-x_1           |[0m WARNING:rasax.community.database.utils:DB revision(s) do not match migration scripts revision(s):
+[35;1mrasa-x_1           |[0m WARNING:rasax.community.database.utils:DB revision: ['524fbfe6bac0']
+[35;1mrasa-x_1           |[0m WARNING:rasax.community.database.utils:Migration scripts revision: ['839cc1322002']
+[35;1mrasa-x_1           |[0m [2021-04-07 01:45:36 +0000] - (sanic.access)[INFO][172.20.0.11:55912]: GET http://localhost/api/health  200 146
+[34mnginx_1            |[0m 172.20.0.1 - - [07/Apr/2021:01:45:36 +0000] "GET /api/health HTTP/1.1" 200 146 "http://localhost/interactive" "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:87.0) Gecko/20100101 Firefox/87.0"
+[33mdb-migration_1     |[0m [2021-04-07 01:45:36 +0000] - (sanic.access)[INFO][127.0.0.1:42730]: GET http://localhost:8000/health  200 56
+[35;1mrasa-x_1           |[0m [2021-04-07 01:45:36 +0000] - (sanic.access)[INFO][172.20.0.9:56630]: GET http://rasa-x:5002/api/config?token=ei5bqYBnmdi+MIZ2xv2eAg==  503 40
+[33mdb-migration_1     |[0m INFO:alembic.runtime.migration:Running upgrade d5fa2187f905 -> e2b7e06f6dc5, Add message_log_entity_metadata table.
+[35;1mrasa-x_1           |[0m [2021-04-07 01:45:39 +0000] - (sanic.access)[INFO][172.20.0.11:55930]: GET http://localhost/api/conversations/435f3379d8e041c781a2c684481b5466?format=full_conversation&since=1617757740.1070342&environment=production  302 0
+[34mnginx_1            |[0m 172.20.0.1 - - [07/Apr/2021:01:45:39 +0000] "GET /api/conversations/435f3379d8e041c781a2c684481b5466?format=full_conversation&since=1617757740.1070342&environment=production HTTP/1.1" 302 0 "http://localhost/interactive" "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:87.0) Gecko/20100101 Firefox/87.0"
+[35;1mrasa-x_1           |[0m WARNING:rasax.community.database.utils:DB revision(s) do not match migration scripts revision(s):
+[35;1mrasa-x_1           |[0m WARNING:rasax.community.database.utils:DB revision: ['d5fa2187f905']
+[35;1mrasa-x_1           |[0m WARNING:rasax.community.database.utils:Migration scripts revision: ['839cc1322002']
+[35;1mrasa-x_1           |[0m [2021-04-07 01:45:39 +0000] - (sanic.access)[INFO][172.20.0.11:55932]: GET http://localhost/api/health  200 146
+[34mnginx_1            |[0m 172.20.0.1 - - [07/Apr/2021:01:45:39 +0000] "GET /api/health HTTP/1.1" 200 146 "http://localhost/interactive" "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:87.0) Gecko/20100101 Firefox/87.0"
+[33mdb-migration_1     |[0m INFO:alembic.runtime.migration:Running upgrade e2b7e06f6dc5 -> 839cc1322002, Backfill message_log retrieval intent names.
+[35;1mrasa-x_1           |[0m [2021-04-07 01:45:41 +0000] - (sanic.access)[INFO][172.20.0.8:54010]: GET http://rasa-x:5002/api/config?token=ei5bqYBnmdi+MIZ2xv2eAg==  503 40
+[35;1mrasa-x_1           |[0m [2021-04-07 01:45:41 +0000] - (sanic.access)[INFO][172.20.0.9:56650]: GET http://rasa-x:5002/api/config?token=ei5bqYBnmdi+MIZ2xv2eAg==  503 40
+[33mdb-migration_1     |[0m [2021-04-07 01:45:42 +0000] - (sanic.access)[INFO][127.0.0.1:42754]: GET http://localhost:8000/health  200 56
+[33mdb-migration_1     |[0m INFO:alembic.runtime.migration:Context impl PostgresqlImpl.
+[33mdb-migration_1     |[0m INFO:alembic.runtime.migration:Will assume transactional DDL.
+[33mdb-migration_1     |[0m INFO:__main__:The database migration has finished. DB revision: ['839cc1322002']
+[35;1mrasa-x_1           |[0m [2021-04-07 01:45:42 +0000] - (sanic.access)[INFO][172.20.0.11:55942]: GET http://localhost/api/conversations/435f3379d8e041c781a2c684481b5466?format=full_conversation&since=1617757740.1070342&environment=production  302 0
+[34mnginx_1            |[0m 172.20.0.1 - - [07/Apr/2021:01:45:42 +0000] "GET /api/conversations/435f3379d8e041c781a2c684481b5466?format=full_conversation&since=1617757740.1070342&environment=production HTTP/1.1" 302 0 "http://localhost/interactive" "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:87.0) Gecko/20100101 Firefox/87.0"
+[35;1mrasa-x_1           |[0m [2021-04-07 01:45:42 +0000] - (sanic.access)[INFO][172.20.0.11:55944]: GET http://localhost/api/health  200 144
+[34mnginx_1            |[0m 172.20.0.1 - - [07/Apr/2021:01:45:42 +0000] "GET /api/health HTTP/1.1" 200 144 "http://localhost/interactive" "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:87.0) Gecko/20100101 Firefox/87.0"
+[35;1mrasa-x_1           |[0m [92mYour login password is 'PIXCk0vXp8FO'.[0m
+[35;1mrasa-x_1           |[0m INFO:rasax.community.services.event_service:Starting event service (standalone: False).
+[36;1mrabbit_1           |[0m 2021-04-07 01:45:43.194 [info] <0.745.0> accepting AMQP connection <0.745.0> (172.20.0.6:36804 -> 172.20.0.4:5672)
+[36;1mrabbit_1           |[0m 2021-04-07 01:45:43.200 [info] <0.745.0> connection <0.745.0> (172.20.0.6:36804 -> 172.20.0.4:5672): user 'user' authenticated and granted access to vhost '/'
+[35;1mrasa-x_1           |[0m [2021-04-07 01:45:45 +0000] - (sanic.access)[INFO][172.20.0.11:55992]: GET http://localhost/api/conversations/435f3379d8e041c781a2c684481b5466?format=full_conversation&since=1617757740.1070342&environment=production  401 57
+[34mnginx_1            |[0m 172.20.0.1 - - [07/Apr/2021:01:45:45 +0000] "GET /api/conversations/435f3379d8e041c781a2c684481b5466?format=full_conversation&since=1617757740.1070342&environment=production HTTP/1.1" 401 57 "http://localhost/interactive" "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:87.0) Gecko/20100101 Firefox/87.0"
+[35;1mrasa-x_1           |[0m [2021-04-07 01:45:46 +0000] - (sanic.access)[INFO][172.20.0.8:54068]: GET http://rasa-x:5002/api/config?token=ei5bqYBnmdi+MIZ2xv2eAg==  401 76
+[35;1mrasa-x_1           |[0m [2021-04-07 01:45:46 +0000] - (sanic.access)[INFO][172.20.0.9:56708]: GET http://rasa-x:5002/api/config?token=ei5bqYBnmdi+MIZ2xv2eAg==  401 76
+[33mdb-migration_1     |[0m [2021-04-07 01:45:47 +0000] - (sanic.access)[INFO][127.0.0.1:42812]: GET http://localhost:8000/health  200 56
+[35;1mrasa-x_1           |[0m [2021-04-07 01:45:51 +0000] - (sanic.access)[INFO][172.20.0.8:54076]: GET http://rasa-x:5002/api/config?token=ei5bqYBnmdi+MIZ2xv2eAg==  401 76
+[35;1mrasa-x_1           |[0m [2021-04-07 01:45:52 +0000] - (sanic.access)[INFO][172.20.0.9:56716]: GET http://rasa-x:5002/api/config?token=ei5bqYBnmdi+MIZ2xv2eAg==  401 76
+[33mdb-migration_1     |[0m [2021-04-07 01:45:52 +0000] - (sanic.access)[INFO][127.0.0.1:42820]: GET http://localhost:8000/health  200 56
+[35;1mrasa-x_1           |[0m [2021-04-07 01:45:56 +0000] - (sanic.access)[INFO][172.20.0.8:54084]: GET http://rasa-x:5002/api/config?token=ei5bqYBnmdi+MIZ2xv2eAg==  401 76
+[35;1mrasa-x_1           |[0m [2021-04-07 01:45:57 +0000] - (sanic.access)[INFO][172.20.0.9:56728]: GET http://rasa-x:5002/api/config?token=ei5bqYBnmdi+MIZ2xv2eAg==  401 76
+[35;1mrasa-x_1           |[0m [2021-04-07 01:45:57 +0000] - (sanic.access)[INFO][172.20.0.11:56018]: GET http://localhost/login  200 3283
+[34mnginx_1            |[0m 172.20.0.1 - - [07/Apr/2021:01:45:57 +0000] "GET /login HTTP/1.1" 200 1593 "-" "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:87.0) Gecko/20100101 Firefox/87.0"
+[35;1mrasa-x_1           |[0m [2021-04-07 01:45:57 +0000] - (sanic.access)[INFO][172.20.0.11:56026]: GET http://localhost/static/js/2.be159fde.chunk.js  304 0
+[34mnginx_1            |[0m 172.20.0.1 - - [07/Apr/2021:01:45:57 +0000] "GET /static/js/2.be159fde.chunk.js HTTP/1.1" 304 0 "http://localhost/login" "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:87.0) Gecko/20100101 Firefox/87.0"
+[35;1mrasa-x_1           |[0m [2021-04-07 01:45:57 +0000] - (sanic.access)[INFO][172.20.0.11:56020]: GET http://localhost/static/js/main.e34a6319.chunk.js  200 643647
+[34mnginx_1            |[0m 172.20.0.1 - - [07/Apr/2021:01:45:57 +0000] "GET /static/js/main.e34a6319.chunk.js HTTP/1.1" 200 181404 "http://localhost/login" "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:87.0) Gecko/20100101 Firefox/87.0"
+[33mdb-migration_1     |[0m [2021-04-07 01:45:57 +0000] - (sanic.access)[INFO][127.0.0.1:42842]: GET http://localhost:8000/health  200 56
+[34mnginx_1            |[0m 172.20.0.1 - - [07/Apr/2021:01:45:57 +0000] "GET /static/media/rasa_horizontal_logo_white.1b703445.svg HTTP/1.1" 200 851 "http://localhost/login" "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:87.0) Gecko/20100101 Firefox/87.0"
+[35;1mrasa-x_1           |[0m [2021-04-07 01:45:57 +0000] - (sanic.access)[INFO][172.20.0.11:56030]: GET http://localhost/static/media/rasa_horizontal_logo_white.1b703445.svg  200 851
+[35;1mrasa-x_1           |[0m [2021-04-07 01:45:57 +0000] - (sanic.access)[INFO][172.20.0.11:56038]: GET http://localhost/icons/apple-touch-icon-144x144.png  200 8253
+[34mnginx_1            |[0m 172.20.0.1 - - [07/Apr/2021:01:45:57 +0000] "GET /icons/apple-touch-icon-144x144.png HTTP/1.1" 200 8253 "http://localhost/login" "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:87.0) Gecko/20100101 Firefox/87.0"
+[34mnginx_1            |[0m 2021/04/07 01:45:57 [info] 17#17: *1 client 172.20.0.1 closed keepalive connection
+[34mnginx_1            |[0m 172.20.0.1 - - [07/Apr/2021:01:45:57 +0000] "GET /icons/favicon.ico HTTP/1.1" 200 6518 "http://localhost/login" "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:87.0) Gecko/20100101 Firefox/87.0"
+[34mnginx_1            |[0m 2021/04/07 01:45:57 [info] 17#17: *30 client 172.20.0.1 closed keepalive connection
+[35;1mrasa-x_1           |[0m [2021-04-07 01:45:57 +0000] - (sanic.access)[INFO][172.20.0.11:56040]: GET http://localhost/icons/favicon.ico  200 6518
+[35;1mrasa-x_1           |[0m [2021-04-07 01:46:00 +0000] - (sanic.access)[INFO][172.20.0.11:56048]: POST http://localhost/api/auth  200 4877
+[34mnginx_1            |[0m 172.20.0.1 - - [07/Apr/2021:01:46:00 +0000] "POST /api/auth HTTP/1.1" 200 1940 "http://localhost/login" "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:87.0) Gecko/20100101 Firefox/87.0"
+[35;1mrasa-x_1           |[0m [2021-04-07 01:46:00 +0000] - (sanic.access)[INFO][172.20.0.11:56052]: GET http://localhost/static/media/conversations_placeholder.bae2510e.svg  200 7230
+[34mnginx_1            |[0m 172.20.0.1 - - [07/Apr/2021:01:46:00 +0000] "GET /static/media/conversations_placeholder.bae2510e.svg HTTP/1.1" 200 7230 "http://localhost/conversations" "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:87.0) Gecko/20100101 Firefox/87.0"
+[35;1mrasa-x_1           |[0m [2021-04-07 01:46:00 +0000] - (sanic.access)[INFO][172.20.0.11:56054]: GET http://localhost/api/projects/default/git_repositories  200 2
+[34mnginx_1            |[0m 172.20.0.1 - - [07/Apr/2021:01:46:00 +0000] "GET /api/projects/default/git_repositories HTTP/1.1" 200 2 "http://localhost/conversations" "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:87.0) Gecko/20100101 Firefox/87.0"
+[35;1mrasa-x_1           |[0m [2021-04-07 01:46:00 +0000] - (sanic.access)[INFO][172.20.0.11:56082]: GET http://localhost/api/projects/default/intents?fields[example_hashes]=false&fields[suggestions]=false  200 2
+[35;1mrasa-x_1           |[0m [2021-04-07 01:46:00 +0000] - (sanic.access)[INFO][172.20.0.11:56084]: GET http://localhost/api/conversations/slotNames  200 2
+[35;1mrasa-x_1           |[0m [2021-04-07 01:46:00 +0000] - (sanic.access)[INFO][172.20.0.11:56086]: GET http://localhost/api/conversationIntents  200 2
+[34mnginx_1            |[0m 172.20.0.1 - - [07/Apr/2021:01:46:00 +0000] "GET /api/projects/default/intents?fields[example_hashes]=false&fields[suggestions]=false HTTP/1.1" 200 2 "http://localhost/conversations" "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:87.0) Gecko/20100101 Firefox/87.0"
+[34mnginx_1            |[0m 172.20.0.1 - - [07/Apr/2021:01:46:00 +0000] "GET /api/conversationIntents HTTP/1.1" 200 2 "http://localhost/conversations" "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:87.0) Gecko/20100101 Firefox/87.0"
+[34mnginx_1            |[0m 172.20.0.1 - - [07/Apr/2021:01:46:00 +0000] "GET /api/conversations/slotNames HTTP/1.1" 200 2 "http://localhost/conversations" "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:87.0) Gecko/20100101 Firefox/87.0"
+[35;1mrasa-x_1           |[0m [2021-04-07 01:46:00 +0000] - (sanic.access)[INFO][172.20.0.11:56096]: GET http://localhost/api/projects/default/logs?q=&intent=&entity=&tags=&limit=1&offset=0  200 2
+[34mnginx_1            |[0m 172.20.0.1 - - [07/Apr/2021:01:46:00 +0000] "GET /api/projects/default/logs?q=&intent=&entity=&tags=&limit=1&offset=0 HTTP/1.1" 200 2 "http://localhost/conversations" "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:87.0) Gecko/20100101 Firefox/87.0"
+[35;1mrasa-x_1           |[0m [2021-04-07 01:46:00 +0000] - (sanic.access)[INFO][172.20.0.11:56098]: POST http://localhost/api/telemetry  204 0
+[34mnginx_1            |[0m 172.20.0.1 - - [07/Apr/2021:01:46:00 +0000] "POST /api/telemetry HTTP/1.1" 204 0 "http://localhost/conversations" "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:87.0) Gecko/20100101 Firefox/87.0"
+[35;1mrasa-x_1           |[0m [2021-04-07 01:46:00 +0000] - (sanic.access)[INFO][172.20.0.11:56078]: GET http://localhost/api/data_tags  200 2
+[34mnginx_1            |[0m 172.20.0.1 - - [07/Apr/2021:01:46:00 +0000] "GET /api/data_tags HTTP/1.1" 200 2 "http://localhost/conversations" "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:87.0) Gecko/20100101 Firefox/87.0"
+[35;1mrasa-x_1           |[0m [2021-04-07 01:46:00 +0000] - (sanic.access)[INFO][172.20.0.11:56080]: GET http://localhost/api/data_tags  200 2
+[34mnginx_1            |[0m 172.20.0.1 - - [07/Apr/2021:01:46:00 +0000] "GET /api/data_tags HTTP/1.1" 200 2 "http://localhost/conversations" "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:87.0) Gecko/20100101 Firefox/87.0"
+[35;1mrasa-x_1           |[0m [2021-04-07 01:46:00 +0000] - (sanic.access)[INFO][172.20.0.11:56110]: GET http://localhost/api/conversationActions  200 2
+[34mnginx_1            |[0m 172.20.0.1 - - [07/Apr/2021:01:46:00 +0000] "GET /api/conversationActions HTTP/1.1" 200 2 "http://localhost/conversations" "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:87.0) Gecko/20100101 Firefox/87.0"
+[35;1mrasa-x_1           |[0m [2021-04-07 01:46:00 +0000] - (sanic.access)[INFO][172.20.0.11:56114]: GET http://localhost/api/conversationPolicies  200 2
+[34mnginx_1            |[0m 172.20.0.1 - - [07/Apr/2021:01:46:00 +0000] "GET /api/conversationPolicies HTTP/1.1" 200 2 "http://localhost/conversations" "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:87.0) Gecko/20100101 Firefox/87.0"
+[35;1mrasa-x_1           |[0m [2021-04-07 01:46:00 +0000] - (sanic.access)[INFO][172.20.0.11:56124]: GET http://localhost/api/projects/default/entities  200 2
+[34mnginx_1            |[0m 172.20.0.1 - - [07/Apr/2021:01:46:00 +0000] "GET /api/projects/default/entities HTTP/1.1" 200 2 "http://localhost/conversations" "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:87.0) Gecko/20100101 Firefox/87.0"
+[35;1mrasa-x_1           |[0m [2021-04-07 01:46:00 +0000] - (sanic.access)[INFO][172.20.0.11:56120]: GET http://localhost/api/conversations/inputChannels  200 2
+[34mnginx_1            |[0m 172.20.0.1 - - [07/Apr/2021:01:46:00 +0000] "GET /api/conversations/inputChannels HTTP/1.1" 200 2 "http://localhost/conversations" "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:87.0) Gecko/20100101 Firefox/87.0"
+[35;1mrasa-x_1           |[0m [2021-04-07 01:46:00 +0000] - (sanic.access)[INFO][172.20.0.11:56136]: GET http://localhost/api/features  200 2
+[34mnginx_1            |[0m 172.20.0.1 - - [07/Apr/2021:01:46:00 +0000] "GET /api/features HTTP/1.1" 200 2 "http://localhost/conversations" "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:87.0) Gecko/20100101 Firefox/87.0"
+[35;1mrasa-x_1           |[0m [2021-04-07 01:46:00 +0000] - (sanic.access)[INFO][172.20.0.11:56090]: GET http://localhost/api/conversationEntities  200 2
+[34mnginx_1            |[0m 172.20.0.1 - - [07/Apr/2021:01:46:00 +0000] "GET /api/conversationEntities HTTP/1.1" 200 2 "http://localhost/conversations" "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:87.0) Gecko/20100101 Firefox/87.0"
+[35;1mrasa-x_1           |[0m [2021-04-07 01:46:01 +0000] - (sanic.access)[INFO][172.20.0.11:56138]: GET http://localhost/api/user  200 3433
+[34mnginx_1            |[0m 172.20.0.1 - - [07/Apr/2021:01:46:01 +0000] "GET /api/user HTTP/1.1" 200 1008 "http://localhost/conversations" "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:87.0) Gecko/20100101 Firefox/87.0"
+[35;1mrasa-x_1           |[0m [2021-04-07 01:46:01 +0000] - (sanic.access)[INFO][172.20.0.11:56142]: GET http://localhost/api/conversations?limit=30&offset=0&minimumUserMessages=1&intent=&entity=&action=&policies=&slots=&input_channels=&tags_any=&interactive=true&exclude_self=false  200 2
+[34mnginx_1            |[0m 172.20.0.1 - - [07/Apr/2021:01:46:01 +0000] "GET /api/conversations?limit=30&offset=0&minimumUserMessages=1&intent=&entity=&action=&policies=&slots=&input_channels=&tags_any=&interactive=true&exclude_self=false HTTP/1.1" 200 2 "http://localhost/conversations" "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:87.0) Gecko/20100101 Firefox/87.0"
+[35;1mrasa-x_1           |[0m [2021-04-07 01:46:01 +0000] - (sanic.access)[INFO][172.20.0.8:54228]: GET http://rasa-x:5002/api/config?token=ei5bqYBnmdi+MIZ2xv2eAg==  401 76
+[35;1mrasa-x_1           |[0m [2021-04-07 01:46:01 +0000] - (sanic.access)[INFO][172.20.0.11:56060]: GET http://localhost/api/version  200 568
+[34mnginx_1            |[0m 172.20.0.1 - - [07/Apr/2021:01:46:01 +0000] "GET /api/version HTTP/1.1" 200 568 "http://localhost/conversations" "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:87.0) Gecko/20100101 Firefox/87.0"
+[34mnginx_1            |[0m 172.20.0.1 - - [07/Apr/2021:01:46:01 +0000] "GET /api/version HTTP/1.1" 200 568 "http://localhost/conversations" "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:87.0) Gecko/20100101 Firefox/87.0"
+[35;1mrasa-x_1           |[0m [2021-04-07 01:46:01 +0000] - (sanic.access)[INFO][172.20.0.11:56104]: GET http://localhost/api/version  200 568
+[35;1mrasa-x_1           |[0m [2021-04-07 01:46:01 +0000] - (sanic.access)[INFO][172.20.0.11:56092]: GET http://localhost/api/version  200 568
+[34mnginx_1            |[0m 172.20.0.1 - - [07/Apr/2021:01:46:01 +0000] "GET /api/version HTTP/1.1" 200 568 "http://localhost/conversations" "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:87.0) Gecko/20100101 Firefox/87.0"
+[34mnginx_1            |[0m 172.20.0.1 - - [07/Apr/2021:01:46:01 +0000] "GET /icons/favicon.ico HTTP/1.1" 304 0 "http://localhost/conversations" "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:87.0) Gecko/20100101 Firefox/87.0"
+[35;1mrasa-x_1           |[0m [2021-04-07 01:46:01 +0000] - (sanic.access)[INFO][172.20.0.11:56156]: GET http://localhost/icons/favicon.ico  304 0
+[35;1mrasa-x_1           |[0m [2021-04-07 01:46:02 +0000] - (sanic.access)[INFO][172.20.0.9:56870]: GET http://rasa-x:5002/api/config?token=ei5bqYBnmdi+MIZ2xv2eAg==  401 76
+[33mdb-migration_1     |[0m [2021-04-07 01:46:02 +0000] - (sanic.access)[INFO][127.0.0.1:42978]: GET http://localhost:8000/health  200 56
+[35;1mrasa-x_1           |[0m [2021-04-07 01:46:04 +0000] - (sanic.access)[INFO][172.20.0.11:56128]: GET http://localhost/api/telemetry?include_user_groups=true  200 88
+[34mnginx_1            |[0m 172.20.0.1 - - [07/Apr/2021:01:46:04 +0000] "GET /api/telemetry?include_user_groups=true HTTP/1.1" 200 88 "http://localhost/conversations" "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:87.0) Gecko/20100101 Firefox/87.0"
+[35;1mrasa-x_1           |[0m [2021-04-07 01:46:06 +0000] - (sanic.access)[INFO][172.20.0.8:54246]: GET http://rasa-x:5002/api/config?token=ei5bqYBnmdi+MIZ2xv2eAg==  401 76
+[35;1mrasa-x_1           |[0m [2021-04-07 01:46:07 +0000] - (sanic.access)[INFO][172.20.0.9:56886]: GET http://rasa-x:5002/api/config?token=ei5bqYBnmdi+MIZ2xv2eAg==  401 76
+[33mdb-migration_1     |[0m [2021-04-07 01:46:07 +0000] - (sanic.access)[INFO][127.0.0.1:42990]: GET http://localhost:8000/health  200 56
+[35;1mrasa-x_1           |[0m [2021-04-07 01:46:11 +0000] - (sanic.access)[INFO][172.20.0.8:54252]: GET http://rasa-x:5002/api/config?token=ei5bqYBnmdi+MIZ2xv2eAg==  401 76
+[35;1mrasa-x_1           |[0m [2021-04-07 01:46:12 +0000] - (sanic.access)[INFO][172.20.0.9:56892]: GET http://rasa-x:5002/api/config?token=ei5bqYBnmdi+MIZ2xv2eAg==  401 76
+[33mdb-migration_1     |[0m [2021-04-07 01:46:12 +0000] - (sanic.access)[INFO][127.0.0.1:42998]: GET http://localhost:8000/health  200 56
+[35;1mrasa-x_1           |[0m [2021-04-07 01:46:16 +0000] - (sanic.access)[INFO][172.20.0.8:54262]: GET http://rasa-x:5002/api/config?token=ei5bqYBnmdi+MIZ2xv2eAg==  401 76
+[35;1mrasa-x_1           |[0m [2021-04-07 01:46:17 +0000] - (sanic.access)[INFO][172.20.0.9:56902]: GET http://rasa-x:5002/api/config?token=ei5bqYBnmdi+MIZ2xv2eAg==  401 76
+[33mdb-migration_1     |[0m [2021-04-07 01:46:18 +0000] - (sanic.access)[INFO][127.0.0.1:43006]: GET http://localhost:8000/health  200 56
+[35;1mrasa-x_1           |[0m [2021-04-07 01:46:21 +0000] - (sanic.access)[INFO][172.20.0.8:54268]: GET http://rasa-x:5002/api/config?token=ei5bqYBnmdi+MIZ2xv2eAg==  401 76
+[35;1mrasa-x_1           |[0m [2021-04-07 01:46:22 +0000] - (sanic.access)[INFO][172.20.0.9:56908]: GET http://rasa-x:5002/api/config?token=ei5bqYBnmdi+MIZ2xv2eAg==  401 76
+[35;1mrasa-x_1           |[0m [2021-04-07 01:46:22 +0000] - (sanic.access)[INFO][172.20.0.11:56198]: POST http://localhost/api/telemetry  204 0
+[34mnginx_1            |[0m 172.20.0.1 - - [07/Apr/2021:01:46:22 +0000] "POST /api/telemetry HTTP/1.1" 204 0 "http://localhost/conversations" "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:87.0) Gecko/20100101 Firefox/87.0"
+[33mdb-migration_1     |[0m [2021-04-07 01:46:23 +0000] - (sanic.access)[INFO][127.0.0.1:43016]: GET http://localhost:8000/health  200 56
+[35;1mrasa-x_1           |[0m [2021-04-07 01:46:26 +0000] - (sanic.access)[INFO][172.20.0.8:54280]: GET http://rasa-x:5002/api/config?token=ei5bqYBnmdi+MIZ2xv2eAg==  401 76
+[35;1mrasa-x_1           |[0m [2021-04-07 01:46:27 +0000] - (sanic.access)[INFO][172.20.0.9:56920]: GET http://rasa-x:5002/api/config?token=ei5bqYBnmdi+MIZ2xv2eAg==  401 76
+[33mdb-migration_1     |[0m [2021-04-07 01:46:28 +0000] - (sanic.access)[INFO][127.0.0.1:43024]: GET http://localhost:8000/health  200 56
+[35;1mrasa-x_1           |[0m [2021-04-07 01:46:31 +0000] - (sanic.access)[INFO][172.20.0.8:54286]: GET http://rasa-x:5002/api/config?token=ei5bqYBnmdi+MIZ2xv2eAg==  401 76
+[35;1mrasa-x_1           |[0m [2021-04-07 01:46:32 +0000] - (sanic.access)[INFO][172.20.0.9:56926]: GET http://rasa-x:5002/api/config?token=ei5bqYBnmdi+MIZ2xv2eAg==  401 76
+[33mdb-migration_1     |[0m [2021-04-07 01:46:33 +0000] - (sanic.access)[INFO][127.0.0.1:43030]: GET http://localhost:8000/health  200 56
+[35;1mrasa-x_1           |[0m [2021-04-07 01:46:36 +0000] - (sanic.access)[INFO][172.20.0.8:54292]: GET http://rasa-x:5002/api/config?token=ei5bqYBnmdi+MIZ2xv2eAg==  401 76
+[35;1mrasa-x_1           |[0m [2021-04-07 01:46:37 +0000] - (sanic.access)[INFO][172.20.0.9:56932]: GET http://rasa-x:5002/api/config?token=ei5bqYBnmdi+MIZ2xv2eAg==  401 76
+[33mdb-migration_1     |[0m [2021-04-07 01:46:38 +0000] - (sanic.access)[INFO][127.0.0.1:43036]: GET http://localhost:8000/health  200 56
+[35;1mrasa-x_1           |[0m [2021-04-07 01:46:41 +0000] - (sanic.access)[INFO][172.20.0.8:54300]: GET http://rasa-x:5002/api/config?token=ei5bqYBnmdi+MIZ2xv2eAg==  401 76
+[35;1mrasa-x_1           |[0m [2021-04-07 01:46:42 +0000] - (sanic.access)[INFO][172.20.0.9:56940]: GET http://rasa-x:5002/api/config?token=ei5bqYBnmdi+MIZ2xv2eAg==  401 76
+[33mdb-migration_1     |[0m [2021-04-07 01:46:43 +0000] - (sanic.access)[INFO][127.0.0.1:43044]: GET http://localhost:8000/health  200 56
+[35;1mrasa-x_1           |[0m [2021-04-07 01:46:46 +0000] - (sanic.access)[INFO][172.20.0.8:54310]: GET http://rasa-x:5002/api/config?token=ei5bqYBnmdi+MIZ2xv2eAg==  401 76
+[35;1mrasa-x_1           |[0m [2021-04-07 01:46:47 +0000] - (sanic.access)[INFO][172.20.0.9:56950]: GET http://rasa-x:5002/api/config?token=ei5bqYBnmdi+MIZ2xv2eAg==  401 76
+[33mdb-migration_1     |[0m [2021-04-07 01:46:48 +0000] - (sanic.access)[INFO][127.0.0.1:43054]: GET http://localhost:8000/health  200 56
+[35;1mrasa-x_1           |[0m [2021-04-07 01:46:51 +0000] - (sanic.access)[INFO][172.20.0.8:54318]: GET http://rasa-x:5002/api/config?token=ei5bqYBnmdi+MIZ2xv2eAg==  401 76
+[35;1mrasa-x_1           |[0m [2021-04-07 01:46:52 +0000] - (sanic.access)[INFO][172.20.0.9:56958]: GET http://rasa-x:5002/api/config?token=ei5bqYBnmdi+MIZ2xv2eAg==  401 76
+[33mdb-migration_1     |[0m [2021-04-07 01:46:54 +0000] - (sanic.access)[INFO][127.0.0.1:43062]: GET http://localhost:8000/health  200 56
+[35;1mrasa-x_1           |[0m [2021-04-07 01:46:56 +0000] - (sanic.access)[INFO][172.20.0.8:54326]: GET http://rasa-x:5002/api/config?token=ei5bqYBnmdi+MIZ2xv2eAg==  401 76
+[35;1mrasa-x_1           |[0m [2021-04-07 01:46:57 +0000] - (sanic.access)[INFO][172.20.0.9:56966]: GET http://rasa-x:5002/api/config?token=ei5bqYBnmdi+MIZ2xv2eAg==  401 76
+[33mdb-migration_1     |[0m [2021-04-07 01:46:59 +0000] - (sanic.access)[INFO][127.0.0.1:43070]: GET http://localhost:8000/health  200 56
+[35;1mrasa-x_1           |[0m [2021-04-07 01:47:01 +0000] - (sanic.access)[INFO][172.20.0.8:54334]: GET http://rasa-x:5002/api/config?token=ei5bqYBnmdi+MIZ2xv2eAg==  401 76
+^CGracefully stopping... (press Ctrl+C again to force)
+Stopping rasaapp_nginx_1           ... 
+Stopping rasaapp_app_1             ... 
+Stopping rasaapp_rasa-production_1 ... 
+Stopping rasaapp_rasa-worker_1     ... 
+Stopping rasaapp_db-migration_1    ... 
+Stopping rasaapp_rasa-x_1          ... 
+Stopping rasaapp_rabbit_1          ... 
+Stopping rasaapp_redis_1           ... 
+Stopping rasaapp_db_1              ... 
+Stopping rasaapp_duckling_1        ... 
+[10A[2KStopping rasaapp_nginx_1           ... [32mdone[0m[10B[9A[2KStopping rasaapp_app_1             ... [32mdone[0m[9B[6A[2KStopping rasaapp_db-migration_1    ... [32mdone[0m[6B[7A[2KStopping rasaapp_rasa-worker_1     ... [32mdone[0m[7B[1A[2KStopping rasaapp_duckling_1        ... [32mdone[0m[1B[8A[2KStopping rasaapp_rasa-production_1 ... [32mdone[0m[8B[5A[2KStopping rasaapp_rasa-x_1          ... [32mdone[0m[5B[3A[2KStopping rasaapp_redis_1           ... [32mdone[0m[3B[2A[2KStopping rasaapp_db_1              ... [32mdone[0m[2B[4A[2KStopping rasaapp_rabbit_1          ... [32mdone[0m[4B]0;paulista@paulista-DC3D-U: ~/UmaBots/RasaApp[01;32mpaulista@paulista-DC3D-U[00m:[01;34m~/UmaBots/RasaApp[00m$ ls
+[0m[01;34mauth[0m         [01;32mcredentials.yml[0m     [01;32mendpoints.yml[0m     [01;32minstall-rasa.log[0m  [01;32mrasa_x_commands.py[0m
+[01;34mcerts[0m        [01;34mdb[0m                  [01;32menvironments.yml[0m  [01;34mlogs[0m              [01;34mterms[0m
+[01;34mcredentials[0m  [01;32mdocker-compose.yml[0m  [01;32menv.sh[0m            [01;34mmodels[0m
+]0;paulista@paulista-DC3D-U: ~/UmaBots/RasaApp[01;32mpaulista@paulista-DC3D-U[00m:[01;34m~/UmaBots/RasaApp[00m$ git commit -a
+warning: could not open directory 'db/': Permissão negada
+hint: Waiting for your editor to close the file... [?2004h[?1049h[22;0;0t[1;45r(B[m[4l[?7h[39;49m[?1h=[?1h=[?25l[39;49m(B[m[H[2J[43;40H(B[0;7m[ Lendo... ](B[m[43;37H(B[0;7m[ 21 linhas lidas ](B[m[H(B[0;7m  GNU nano 5.2       /home/paulista/UmaBots/RasaApp/.git/COMMIT_EDITMSG                    [1;90H(B[m[44d(B[0;7m^G(B[m Ajuda[16G(B[0;7m^O(B[m Gravar[31G(B[0;7m^W(B[m Onde está?  (B[0;7m^K(B[m Recortar    (B[0;7m^T(B[m Executar    (B[0;7m^C(B[m Local[45d(B[0;7m^X(B[m Sair[45;16H(B[0;7m^R(B[m Ler o arq   (B[0;7m^\(B[m Substituir  (B[0;7m^U(B[m Colar[61G(B[0;7m^J(B[m Justificar  (B[0;7m^_(B[m Ir p/ linha[43d[3d[36m# Please enter the commit message for your changes. Lines starting[4d# with '#' will be ignored, and an empty message aborts the commit.[5d#[6d# No ramo main[7d# Your branch is up to date with 'origin/main'.[8d#[9d# Mudanças a serem submetidas:[10d#[38;5;13
